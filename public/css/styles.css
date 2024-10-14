@@ -1,3 +1,4 @@
+/* Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -6,69 +7,99 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f4f4f4; 
-}
-
-.navbar {
-    background: linear-gradient(135deg, #2C3E50, #34495E); 
-    padding: 15px 30px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    position: sticky; 
-    top: 0;
-    z-index: 1000; 
+    background-color: #F0F4F8; /* Light gray-blue background */
+    color: #333;
+    line-height: 1.6;
 }
 
 .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #2C3E50; /* Dark slate gray */
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+
+.navbar:hover {
+    background-color: #34495E; /* Slightly lighter on hover */
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+}
+
+.navbar .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .logo {
-    color: #ECF0F1; 
     font-size: 28px;
-    font-weight: 700;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    color: #FFFFFF;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.logo:hover {
+    transform: scale(1.1); /* Scale up slightly on hover */
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-}
-
-.nav-links li {
-    margin-left: 30px;
+    gap: 30px;
 }
 
 .nav-links a {
-    background: linear-gradient(135deg, #F39C12, #E67E22);
-    color: #fff;
-    padding: 12px 20px; 
-    border-radius: 30px; 
-    border: 2px solid transparent; 
-    font-weight: bold;
+    color: #FFFFFF;
     text-decoration: none;
-    transition: transform 0.3s, box-shadow 0.3s, background 0.3s, border-color 0.3s;
-    position: relative; 
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background-color: transparent;
+    transition: background-color 0.4s ease;
+}
+
+.nav-links a:hover::before {
+    background-color: #F39C12; /* Add underline on hover */
 }
 
 .nav-links a:hover {
-    background: linear-gradient(135deg, #E67E22, #F39C12); 
-    border-color: #F39C12;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
-
+    background-color: #F39C12; /* Vibrant orange on hover */
+    color: #2C3E50;
+    transform: translateY(-2px); /* Lift effect */
 }
 
+/* Hero Section */
 .hero {
     height: 100vh;
-    background: linear-gradient(to right, #2C3E50, #34495E); 
+    background: linear-gradient(135deg, #1ABC9C, #16A085); /* Teal gradient */
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #ECF0F1; 
-    text-align: center;
     position: relative;
+    color: #FFF;
+    text-align: center;
 }
 
 .hero::before {
@@ -78,44 +109,48 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); 
+    background: rgba(0, 0, 0, 0.2); /* Slight dark overlay */
     z-index: 1;
 }
 
 .hero-content {
     position: relative;
     z-index: 2;
+    max-width: 800px;
 }
 
 .hero h2 {
     font-size: 48px;
     margin-bottom: 20px;
-    animation: fadeIn 1s ease-in-out;
+    animation: fadeInDown 1s ease;
 }
 
 .hero p {
     font-size: 20px;
     margin-bottom: 30px;
-    animation: fadeIn 1.5s ease-in-out;
+    animation: fadeInUp 1.2s ease;
 }
 
 .btn {
-    background-color: #F39C12; 
-    color: #333;
-    padding: 10px 20px;
+    background-color: #F39C12; /* Vibrant orange */
+    color: #2C3E50;
+    padding: 15px 30px;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
     text-decoration: none;
+    font-size: 18px;
     font-weight: bold;
-    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 .btn:hover {
-    background-color: #E67E22; 
-    transform: scale(1.05);
+    background-color: #F7CA18;
+    transform: scale(1.1);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.25); /* Lift effect on hover */
 }
 
-@keyframes fadeIn {
+@keyframes fadeInDown {
     from {
         opacity: 0;
         transform: translateY(-20px);
@@ -124,4 +159,28 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Footer Section */
+footer {
+    background-color: #2C3E50;
+    color: #ECF0F1;
+    padding: 30px 0;
+    text-align: center;
+}
+
+footer p {
+    font-size: 14px;
+    color: #ECF0F1;
 }
