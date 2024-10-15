@@ -1,4 +1,4 @@
-/* Global Styles */
+
 * {
     margin: 0;
     padding: 0;
@@ -7,9 +7,10 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #F0F4F8; /* Light gray-blue background */
+    background: linear-gradient(120deg, #F0F4F8, #ECF0F1, #E0E7FF);
     color: #333;
     line-height: 1.6;
+    transition: background 1s ease;
 }
 
 .container {
@@ -18,9 +19,8 @@ body {
     padding: 0 20px;
 }
 
-/* Navbar Styles */
 .navbar {
-    background-color: #2C3E50; /* Dark slate gray */
+    background-color: #2C3E50;
     padding: 15px 0;
     position: sticky;
     top: 0;
@@ -29,8 +29,8 @@ body {
 }
 
 .navbar:hover {
-    background-color: #34495E; /* Slightly lighter on hover */
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+    background-color: #34495E;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .navbar .container {
@@ -50,13 +50,13 @@ body {
 }
 
 .logo:hover {
-    transform: scale(1.1); /* Scale up slightly on hover */
+    transform: scale(1.1);
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 30px;
+    gap: 15px;
 }
 
 .nav-links a {
@@ -65,35 +65,93 @@ body {
     font-weight: bold;
     padding: 10px 20px;
     border-radius: 30px;
+    border: 2px solid #F39C12;
     transition: all 0.4s ease;
     position: relative;
 }
 
-.nav-links a::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 2px;
-    width: 100%;
-    background-color: transparent;
-    transition: background-color 0.4s ease;
-}
-
-.nav-links a:hover::before {
-    background-color: #F39C12; /* Add underline on hover */
-}
-
 .nav-links a:hover {
-    background-color: #F39C12; /* Vibrant orange on hover */
+    background-color: #F39C12;
     color: #2C3E50;
-    transform: translateY(-2px); /* Lift effect */
+    transform: translateY(-2px);
 }
 
-/* Hero Section */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px;
+    border: 2px solid #F39C12;
+    border-radius: 20%;
+    transition: all 0.3s ease;
+}
+
+.hamburger:hover {
+    background-color: rgba(243, 156, 18, 0.2);
+    box-shadow: 0 0 10px rgba(243, 156, 18, 0.6);
+    transform: scale(1.1);
+}
+
+.hamburger .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 4px 0;
+    transition: all 0.3s ease;
+}
+
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 200px;
+    background-color: #2C3E50;
+    padding-top: 60px;
+    transition: transform 0.4s ease; 
+    z-index: 1000;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 0 10px 10px 0;
+    transform: translateX(100%); 
+}
+
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    color: #FFF;
+    cursor: pointer;
+}
+
+.side-menu a {
+    display: block;
+    padding: 16px 20px;
+    text-align: left;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 10px 0;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.side-menu a:hover {
+    background-color: #F39C12;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.side-menu.show {
+    transform: translateX(0); 
+}
+
 .hero {
     height: 100vh;
-    background: linear-gradient(135deg, #1ABC9C, #16A085); /* Teal gradient */
+    background: linear-gradient(135deg, #1ABC9C, #16A085);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -109,7 +167,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.2); /* Slight dark overlay */
+    background: rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
@@ -132,7 +190,7 @@ body {
 }
 
 .btn {
-    background-color: #F39C12; /* Vibrant orange */
+    background-color: #F39C12;
     color: #2C3E50;
     padding: 15px 30px;
     border: none;
@@ -147,7 +205,7 @@ body {
 .btn:hover {
     background-color: #F7CA18;
     transform: scale(1.1);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.25); /* Lift effect on hover */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.25);
 }
 
 @keyframes fadeInDown {
@@ -172,7 +230,6 @@ body {
     }
 }
 
-/* Footer Section */
 footer {
     background-color: #2C3E50;
     color: #ECF0F1;
@@ -183,4 +240,23 @@ footer {
 footer p {
     font-size: 14px;
     color: #ECF0F1;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .side-menu {
+        width: 80%;
+        transform: translateX(100%);
+    }
+
+    .side-menu.show {
+        transform: translateX(0);
+    }
 }
