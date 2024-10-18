@@ -17,3 +17,5 @@ window.addEventListener('resize', () => {
         sideMenu.classList.remove('show');
     }
 });
+
+
