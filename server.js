@@ -34,7 +34,7 @@ app.post('/login', async (req, res) => {
     try {
         const user = await User.findOne({ email, password });
         if (user) {
-            res.send('Login successful!');
+            res.sendFile(path.join(__dirname, 'public', 'home.html'));
         } else {
             res.send('Invalid email or password');
         }
