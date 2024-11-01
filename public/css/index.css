@@ -104,7 +104,7 @@ body {
 .side-menu {
     position: fixed;
     top: 10%;
-    right: 10px; /* Add right margin to detach from the edge */
+    right: 10px;
     height: 60%;
     width: 250px; 
     background-color: #2C3E50; 
@@ -115,6 +115,7 @@ body {
     transition: transform 0.4s ease, box-shadow 0.3s ease; /* Add transition for box-shadow */
     overflow-y: auto; 
     border-radius: 10px;
+    overflow-y: auto; 
 }
 
 .side-menu.show {
@@ -133,6 +134,7 @@ body {
     cursor: pointer;
     transition: transform 0.3s ease, color 0.3s ease;
     z-index: 1001;
+    overflow: hidden;
 }
 
 .close-btn:hover {
@@ -149,7 +151,7 @@ body {
     text-decoration: none;
     font-weight: 500;
     border-radius: 8px; 
-    margin: 20px 0;
+    margin: 10px 0; /* Reduce margin to prevent overflow */
     transition: all 0.9s ease; 
     background-color: rgba(255, 255, 255, 0.1); 
     position: relative;
@@ -249,16 +251,69 @@ body {
     }
 }
 
+
 footer {
     background-color: #2C3E50;
     color: #ECF0F1;
-    padding: 30px 0;
-    text-align: center;
+    padding: 40px 0;
+    margin-top: 1px;
 }
 
-footer p {
+footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-columns {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 900px; 
+    margin-bottom: 20px;
+}
+
+.col-about, .col-links, .col-contact {
+    width: calc(33.33% - 20px); /* Distribute column width evenly */
+    text-align: left;
+}
+
+.col-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.col-links a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.col-links a:hover {
+    color: #F39C12;
+}
+
+.footer-bottom {
+    text-align: center;
+    width: 100%;
+}
+
+.footer-bottom p {
     font-size: 14px;
-    color: #ECF0F1;
+    color: #bdc3c7;
+}
+
+
+@media (max-width: 768px) {
+    .footer-columns {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .col-about, .col-links, .col-contact {
+        width: 100%;
+        margin-bottom: 20px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -277,5 +332,6 @@ footer p {
 
     .side-menu {
         width: 200px;
+        overflow-y: hidden; /* Hide vertical scrollbar on small screens */
     }
 }
