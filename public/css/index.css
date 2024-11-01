@@ -1,3 +1,6 @@
+/* index.css */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -5,7 +8,7 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     background: linear-gradient(120deg, #F0F4F8, #ECF0F1, #E0E7FF);
     color: #333;
     line-height: 1.6;
