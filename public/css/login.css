@@ -8,7 +8,7 @@
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
-    background: linear-gradient(120deg, #84fab0, #8fd3f4); /* Greenish gradient */
+    background: linear-gradient(120deg, #5fd68b, #5c9ec0); /* Greenish gradient */
     color: #333;
     line-height: 1.6;
     transition: background 1s ease;
@@ -188,12 +188,12 @@ h1, h2, h3 {
 
 .login-form {
     max-width: 350px;
-    margin: 50px auto;
+    margin: 70px auto;
     padding: 20px; 
-    background: linear-gradient(135deg, #1ABC9C, #16A085); /* Green gradient */
+    background: linear-gradient(135deg, #1f6758, #5c89c1); /* Green gradient */
     border-radius: 15px; 
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
-    color: rgb(255, 255, 255); /* White text color for contrast */
+    color: rgb(255, 255, 255); 
 }
 
 .login-form h2 {
@@ -262,6 +262,35 @@ h1, h2, h3 {
 
 .login-form p a:hover {
     text-decoration: underline;
+}
+
+/* Error Message Styles */
+.error-message{
+    color: #ff4d4d;               /* Red text color for error */
+    background-color: #ffe6e6;    /* Light red background for visibility */
+    padding: 10px;                /* Padding for space inside the error box */
+    border: 1px solid #ff4d4d;    /* Red border for emphasis */
+    border-radius: 5px;           /* Rounded corners */
+    margin-bottom: 15px;          /* Space below the error message */
+    display: none;                /* Hidden by default, shown when there's an error */
+    text-align: center;           /* Center text */
+    font-weight: bold;            /* Bold text for visibility */
+    font-size: 0.9em;             /* Slightly smaller font size for subtlety */
+}
+
+/* Optional animation for the error message (fade-in effect) */
+.error-message.show{
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Keyframes for fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes slideIn {

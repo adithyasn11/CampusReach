@@ -8,7 +8,7 @@
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
-    background: linear-gradient(120deg, #F0F4F8, #ECF0F1, #E0E7FF);
+    background: linear-gradient(120deg, #84fab0, #8fd3f4);
     color: #333;
     line-height: 1.6;
     transition: background 1s ease;
@@ -187,8 +187,8 @@ h1, h2, h3 {
 }
 
 .hero {
-    height: 100vh;
-    background: linear-gradient(135deg, #1ABC9C, #16A085);
+    height: 525px;
+    background:linear-gradient(120deg, #5fd68b, #5c9ec0);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -226,6 +226,29 @@ h1, h2, h3 {
     animation: fadeInUp 1.2s ease;
 }
 
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
 .btn {
     background-color: #f39c10;
     color: #2C3E50;
@@ -260,7 +283,6 @@ footer {
     background-color: #2C3E50;
     color: #ECF0F1;
     padding: 40px 0;
-    margin-top: 1px;
 }
 
 footer .container {

@@ -7,10 +7,12 @@ import { fileURLToPath } from 'url';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-mongoose.connect('mongodb://localhost:27017/login').then(() => console.log('MongoDB connected')).catch((error) => {
-    console.error('MongoDB connection error:', error);
-    process.exit(1);
-});
+mongoose.connect('mongodb://localhost:27017/login')
+    .then(() => console.log('MongoDB connected'))
+    .catch((error) => {
+        console.error('MongoDB connection error:', error);
+        process.exit(1);
+    });
 
 const userSchema = new mongoose.Schema({
     email: { type: String, required: true },
@@ -34,12 +36,14 @@ app.post('/login', async (req, res) => {
     try {
         const user = await User.findOne({ email, password });
         if (user) {
-            res.sendFile(path.join(__dirname, 'public', 'home.html'));
+            // Successful login, redirect to home page
+            res.json({ success: true, redirectUrl: '/home.html' });
         } else {
-            res.send('Invalid email or password');
+            // Return error message if credentials are invalid
+            res.json({ success: false, message: 'Invalid email or password' });
         }
     } catch (error) {
-        res.status(500).send('Error logging in');
+        res.status(500).json({ success: false, message: 'Server error, please try again' });
     }
 });
 
