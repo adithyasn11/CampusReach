@@ -4,7 +4,6 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-<<<<<<< HEAD
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "adithyasn",
@@ -16,17 +15,4 @@
     "mongoose": "^8.7.2",
     "nodemon": "^1.1.2"
   }
-=======
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "author": "adithyasn",
-  "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.20.3",
-    "express": "^4.21.1",
-    "mongoose": "^8.7.2",
-    "nodemon": "^1.1.2"
-  },
-  "description": ""
 }
