@@ -8,15 +8,12 @@
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
-<<<<<<< HEAD
     background: linear-gradient(120deg, #84fab0, #8fd3f4);
-=======
-    background: linear-gradient(120deg, #F0F4F8, #ECF0F1, #E0E7FF);
->>>>>>> 2e8bbfa (signup page updated)
     color: #333;
     line-height: 1.6;
     transition: background 1s ease;
 }
+
 h1, h2, h3 {
     font-family: 'Playfair Display', serif;
 }
@@ -120,7 +117,7 @@ h1, h2, h3 {
     padding-top: 30px;
     z-index: 1000;
     box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
-    transform: translateX(110%); 
+    transform: translateX(110%);
     transition: transform 0.4s ease, box-shadow 0.3s ease;
     overflow-y: auto; 
     border-radius: 10px;
@@ -131,7 +128,7 @@ h1, h2, h3 {
     transform: translateX(0);
     animation: slideIn 0.5s ease-in-out;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
-    animation: none; 
+    animation: none;
 }
 
 .close-btn {
@@ -149,7 +146,6 @@ h1, h2, h3 {
 .close-btn:hover {
     transform: rotate(90deg);
     color: #F39C12;
-    
 }
 
 .side-menu a {
@@ -164,7 +160,7 @@ h1, h2, h3 {
     transition: all 0.9s ease; 
     background-color: rgba(255, 255, 255, 0.1); 
     position: relative;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 .side-menu a:hover {
@@ -190,94 +186,81 @@ h1, h2, h3 {
     left: 0;
 }
 
-.hero {
-<<<<<<< HEAD
-    height: 525px;
-    background:linear-gradient(120deg, #5fd68b, #5c9ec0);
-=======
-    height: 100vh;
-    background: linear-gradient(135deg, #1ABC9C, #16A085);
->>>>>>> 2e8bbfa (signup page updated)
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    color: #FFF;
+
+.signup-form {
+    max-width: 350px;
+    margin: 50px auto;
+    padding: 20px;
+    background: linear-gradient(135deg, #1ABC9C, #16A085); 
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
+    color: rgb(255, 255, 255);
+}
+
+.signup-form h2 {
     text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2em; 
+    margin-bottom: 25px;
 }
 
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.form-group input {
     width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.2);
-    z-index: 1;
+    padding: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: transparent; /* Transparent input background */
+    color: white;
 }
 
-.hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 800px;
-}
-
-.hero h2 {
-    font-size: 48px;
-    margin-bottom: 20px;
-    animation: fadeInDown 1s ease;
-}
-
-.hero p {
-    font-size: 20px;
-    margin-bottom: 30px;
-    animation: fadeInUp 1.2s ease;
-}
-
-<<<<<<< HEAD
-@keyframes fadeInDown {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-=======
->>>>>>> 2e8bbfa (signup page updated)
-.btn {
-    background-color: #f39c10;
+.signup-form button {
+    background-color: #F39C12; /* Keep the orange button */
     color: #2C3E50;
-    padding: 15px 30px;
     border: none;
     border-radius: 50px;
     text-decoration: none;
-    font-size: 18px;
     font-weight: bold;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 100%; 
+    font-size: 16px; 
+    padding: 12px 25px;
 }
 
-.btn:hover {
+.signup-form button:hover {
     background-color: #F7CA18;
-    transform: scale(1.1);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px); 
+}
+
+.signup-form p {
+    text-align: center;
+    margin-top: 20px; 
+    font-size: 0.9em;
+}
+
+.signup-form p a {
+    color: #F39C12; /* Keep the orange link */
+    text-decoration: none;
+}
+
+.signup-form p a:hover {
+    text-decoration: underline;
+}
+
+.signup-form p a:hover {
+    text-decoration: underline;
 }
 
 @keyframes slideIn {
@@ -287,7 +270,7 @@ h1, h2, h3 {
     }
     to {
         transform: translateX(0);
-        opacity: 1;   
+        opacity: 1;  
     }
 }
 
@@ -295,16 +278,15 @@ footer {
     background-color: #2C3E50;
     color: #ECF0F1;
     padding: 40px 0;
-<<<<<<< HEAD
-=======
     margin-top: 1px;
->>>>>>> 2e8bbfa (signup page updated)
+    
 }
 
 footer .container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    
 }
 
 .footer-columns {
@@ -315,7 +297,9 @@ footer .container {
     margin-bottom: 20px;
 }
 
-.col-about, .col-links, .col-contact {
+.col-about, 
+.col-links, 
+.col-contact {
     width: calc(33.33% - 20px);
     text-align: left;
 }
@@ -354,32 +338,12 @@ footer .container {
 }
 
 .social-icons a {
-    display: block; 
+    display: block;
 }
 
-.social-icons img {
-    width: 30px; 
-    height: auto;
-    transition: transform 0.2s ease; 
-}
-
-.social-icons img:hover {
-    transform: scale(1.1); 
-}
 .social-icons a i {
-    color: white;
-}
-
-@media (max-width: 768px) {
-    .footer-columns {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .col-about, .col-links, .col-contact {
-        width: 100%;
-        margin-bottom: 20px;
-    }
+    color: white; 
+    font-size: 24px;
 }
 
 @media (max-width: 768px) {
@@ -398,6 +362,18 @@ footer .container {
 
     .side-menu {
         width: 200px;
-        overflow-y: hidden;
+        overflow-y: hidden; 
+    }
+
+    .footer-columns {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .col-about, 
+    .col-links, 
+    .col-contact {
+        width: 100%;
+        margin-bottom: 20px;
     }
 }

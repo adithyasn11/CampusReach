@@ -8,7 +8,7 @@
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
-    background: linear-gradient(120deg, #5fd68b, #5c9ec0);
+    background: linear-gradient(120deg, #84fab0, #8fd3f4); /* Greenish gradient */
     color: #333;
     line-height: 1.6;
     transition: background 1s ease;
@@ -121,12 +121,14 @@ h1, h2, h3 {
     transition: transform 0.4s ease, box-shadow 0.3s ease;
     overflow-y: auto; 
     border-radius: 10px;
+    overflow-y: auto; 
 }
 
 .side-menu.show {
     transform: translateX(0);
     animation: slideIn 0.5s ease-in-out;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    animation: none;
 }
 
 .close-btn {
@@ -186,12 +188,12 @@ h1, h2, h3 {
 
 .login-form {
     max-width: 350px;
-    margin: 70px auto;
+    margin: 50px auto;
     padding: 20px; 
-    background: linear-gradient(135deg, #1f6758, #5c89c1);
+    background: linear-gradient(135deg, #1ABC9C, #16A085); /* Green gradient */
     border-radius: 15px; 
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
-    color: rgb(255, 255, 255); 
+    color: rgb(255, 255, 255); /* White text color for contrast */
 }
 
 .login-form h2 {
@@ -215,21 +217,21 @@ h1, h2, h3 {
 .form-group input {
     width: 100%;
     padding: 10px; 
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.5); /* Semi-transparent white border */
     border-radius: 8px; 
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background-color: transparent;
-    color: white;
+    background-color: transparent; /* Transparent input background */
+    color: white; /* White input text color */
 }
 
 .form-group input:focus {
-    border-color: #f0f0f0;
+    border-color: #f0f0f0; /* Lighter border on focus */
     outline: none;
-    box-shadow: 0 0 10px rgba(240, 240, 240, 0.3);
+    box-shadow: 0 0 10px rgba(240, 240, 240, 0.3); /* White glow on focus */
 }
 
 .login-form button {
-    background-color: #F39C12;
+    background-color: #F39C12; /* Keep the orange button */
     color: #2C3E50;
     border: none;
     border-radius: 50px;
@@ -254,51 +256,12 @@ h1, h2, h3 {
 }
 
 .login-form p a {
-    color: #F39C12;
+    color: #F39C12; /* Keep the orange link */
     text-decoration: none;
 }
 
 .login-form p a:hover {
     text-decoration: underline;
-}
-
-.error-message{
-    color: #ff4d4d;
-    background-color: #ffe6e6;
-    padding: 10px;
-    border: 1px solid #ff4d4d;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    display: none;
-    text-align: center;
-    font-weight: bold;
-    font-size: 0.9em;
-}
-
-.error-message.show{
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-.password-container {
-    position: relative;
-}
-
-.eye-icon {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    margin-top: 1rem;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
 }
 
 @keyframes slideIn {
@@ -317,12 +280,14 @@ footer {
     color: #ECF0F1;
     padding: 40px 0;
     margin-top: 1px;
+    
 }
 
 footer .container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    
 }
 
 .footer-columns {
