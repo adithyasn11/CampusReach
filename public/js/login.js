@@ -1,19 +1,9 @@
-const hamburger = document.getElementById('hamburger');
-const sideMenu = document.getElementById('side-menu');
-const closeBtn = document.getElementById('close-btn');
-
-hamburger.addEventListener('click', () => {
-    sideMenu.classList.toggle('show');
+document.getElementById("hamburger").addEventListener("click", function() {
+    document.getElementById("side-menu").classList.add("show");
 });
 
-closeBtn.addEventListener('click', () => {
-    sideMenu.classList.remove('show');
-});
-
-window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
-        sideMenu.classList.remove('show');
-    }
+document.getElementById("close-btn").addEventListener("click", function() {
+    document.getElementById("side-menu").classList.remove("show");
 });
 
 document.getElementById("form").addEventListener("submit", async function(event) {
@@ -58,26 +48,8 @@ document.getElementById("form").addEventListener("submit", async function(event)
     }
 });
 
-function togglePasswordVisibility() {
-    const passwordInput = document.getElementById("password");
-    const eyeIcon = document.querySelector(".eye-icon i"); 
-  
-    if (passwordInput.type === "password") {
-      passwordInput.type = "text";
-      eyeIcon.classList.remove("fa-eye");
-      eyeIcon.classList.add("fa-eye-slash"); 
-    } else {
-      passwordInput.type = "password";
-      eyeIcon.classList.remove("fa-eye-slash");
-      eyeIcon.classList.add("fa-eye"); 
-    }
-  }
-  
-  // ... (Your other JavaScript code, if any) ...
-
 // Helper function to validate email format
 function validateEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
 }
-

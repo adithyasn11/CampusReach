@@ -15,7 +15,7 @@ mongoose.connect('mongodb+srv://adithyasn2487:Adithya452005@campusreach.j19dc.mo
     });
 
 const userSchema = new mongoose.Schema({
-    email: { type: String, required: true, unique: true },
+    email: { type: String, required: true },
     password: { type: String, required: true }
 });
 const User = mongoose.model('User', userSchema);
