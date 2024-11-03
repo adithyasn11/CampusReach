@@ -4,20 +4,6 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-<<<<<<< HEAD
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "adithyasn",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "body-parser": "^1.20.3",
-    "cors": "^2.8.5",
-    "express": "^4.21.1",
-    "mongoose": "^8.7.2",
-    "nodemon": "^1.1.2"
-  }
-=======
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
@@ -30,5 +16,4 @@
     "nodemon": "^1.1.2"
   },
   "description": ""
->>>>>>> 2e8bbfa (signup page updated)
 }
