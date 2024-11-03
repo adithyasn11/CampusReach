@@ -8,11 +8,7 @@
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
-<<<<<<< HEAD
     background: linear-gradient(120deg, #84fab0, #8fd3f4);
-=======
-    background: linear-gradient(120deg, #F0F4F8, #ECF0F1, #E0E7FF);
->>>>>>> 2e8bbfa (signup page updated)
     color: #333;
     line-height: 1.6;
     transition: background 1s ease;
@@ -191,13 +187,8 @@ h1, h2, h3 {
 }
 
 .hero {
-<<<<<<< HEAD
-    height: 525px;
-    background:linear-gradient(120deg, #5fd68b, #5c9ec0);
-=======
     height: 100vh;
     background: linear-gradient(135deg, #1ABC9C, #16A085);
->>>>>>> 2e8bbfa (signup page updated)
     display: flex;
     align-items: center;
     justify-content: center;
@@ -235,7 +226,6 @@ h1, h2, h3 {
     animation: fadeInUp 1.2s ease;
 }
 
-<<<<<<< HEAD
 @keyframes fadeInDown {
     0% {
         opacity: 0;
@@ -259,8 +249,6 @@ h1, h2, h3 {
 }
 
 
-=======
->>>>>>> 2e8bbfa (signup page updated)
 .btn {
     background-color: #f39c10;
     color: #2C3E50;
@@ -295,10 +283,7 @@ footer {
     background-color: #2C3E50;
     color: #ECF0F1;
     padding: 40px 0;
-<<<<<<< HEAD
-=======
     margin-top: 1px;
->>>>>>> 2e8bbfa (signup page updated)
 }
 
 footer .container {
