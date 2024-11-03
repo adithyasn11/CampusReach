@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-mongoose.connect('mongodb://localhost:27017/login')
+mongoose.connect('mongodb+srv://adithyasn2487:Adithya452005@campusreach.j19dc.mongodb.net/')
     .then(() => console.log('MongoDB connected'))
     .catch((error) => {
         console.error('MongoDB connection error:', error);
@@ -15,7 +15,7 @@ mongoose.connect('mongodb://localhost:27017/login')
     });
 
 const userSchema = new mongoose.Schema({
-    email: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
     password: { type: String, required: true }
 });
 const User = mongoose.model('User', userSchema);
@@ -34,15 +34,17 @@ app.get('/', (req, res) => {
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
-        const user = await User.findOne({ email, password });
+        const db = mongoose.connection.useDb('login'); 
+        const usersCollection = db.collection('users');
+        const user = await usersCollection.findOne({ email, password }); 
+
         if (user) {
-            // Successful login, redirect to home page
             res.json({ success: true, redirectUrl: '/home.html' });
         } else {
-            // Return error message if credentials are invalid
             res.json({ success: false, message: 'Invalid email or password' });
         }
     } catch (error) {
+        console.error("Login error:", error);
         res.status(500).json({ success: false, message: 'Server error, please try again' });
     }
 });
