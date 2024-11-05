@@ -10,7 +10,7 @@
   <body>
     <nav class="navbar">
       <div class="container">
-        <a href="index.html" class="logo">CampusReach</a>
+        <a href="#" class="logo">CampusReach</a>
         <ul class="nav-links">
           <li><a href="login.html">Login</a></li>
           <li><a href="signup.html">Sign Up</a></li>
@@ -29,23 +29,26 @@
     </div>
     <div class="container">
       <div class="login-form">
-       <h2>Login</h2>
-       <div id="error-message" class="error-message"></div> <!-- Error message container -->
-       <form id="form" action="/login" method="POST">
-       <div class="form-group">
-      <label for="email">Email:</label>
-       <input type="email" id="email" name="email" required>
-       </div>
-       <div class="form-group">
-       <label for="password">Password:</label>
-       <input type="password" id="password" name="password" required>
+        <h2>Login</h2>
+        <div id="error-message" class="error-message" style="display: none;"></div> <!-- Error message container -->
+        <form id="form" action="/login" method="POST">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <div class="password-container">
+              <input type="password" id="password" name="password" required>
+              <i class="fa-solid fa-eye" id="togglePassword"></i>
+            </div>
+          </div>
+          <button type="submit" class="btn">Login</button>
+        </form>
+        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
       </div>
-     <button type="submit" class="btn">Login</button>
-       </form>
-     <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
     </div>
-      </div>
-      
+    
     <footer>
       <div class="container">
         <div class="footer-columns">

@@ -8,7 +8,7 @@
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
-    background: linear-gradient(120deg, #84fab0, #8fd3f4);
+    background: linear-gradient(120deg, #F0F4F8, #ECF0F1, #E0E7FF);
     color: #333;
     line-height: 1.6;
     transition: background 1s ease;
@@ -24,16 +24,20 @@ h1, h2, h3 {
 }
 
 .navbar {
-    background-color: #2C3E50;
-    padding: 10px 0; 
+    background: linear-gradient(13deg, #4d5b61, #092c34);
+    height: 55px; /* Fixed height for consistency */
+    padding: 0 20px; /* Adjust padding for consistent height */
     position: sticky;
     top: 0;
     z-index: 1000;
-    transition: background-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+    box-shadow: 0px 4px 20px rgba(245, 240, 240, 0.2);    
+    transition: box-shadow 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
 }
 
 .navbar:hover {
-    background-color: #34495E;
+    background: linear-gradient(13deg, #092c34, #4d5b61);
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -41,6 +45,8 @@ h1, h2, h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%; /* Ensure it spans the navbar */
+    max-width: 1200px;
 }
 
 .logo {
@@ -50,8 +56,8 @@ h1, h2, h3 {
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 2px;
-    transition: transform 0.3s ease-in-out;
     margin-left: 20px;
+    transition: transform 0.3s ease-in-out;
 }
 
 .logo:hover {
@@ -69,7 +75,7 @@ h1, h2, h3 {
     color: #FFFFFF;
     text-decoration: none;
     font-weight: bold;
-    padding: 8px 16px; 
+    padding: 8px 16px; /* Consistent padding */
     border-radius: 30px;
     border: 2px solid #F39C12;
     transition: all 0.4s ease;
@@ -100,7 +106,7 @@ h1, h2, h3 {
 
 .hamburger .bar {
     width: 25px;
-    height: 3px;
+    height: 2px;
     background-color: #fff;
     margin: 4px 0;
     transition: all 0.3s ease;
@@ -151,7 +157,8 @@ h1, h2, h3 {
 .side-menu a {
     display: block;
     padding: 20px 20px;
-    text-align: left;
+    text-align: center;
+    font-size: large;
     color: #fff;
     text-decoration: none;
     font-weight: 500;
@@ -187,13 +194,13 @@ h1, h2, h3 {
 }
 
 .hero {
-    height: 100vh;
-    background: linear-gradient(135deg, #1ABC9C, #16A085);
+    height: 90vh;
+    background: linear-gradient(135deg, #3c8b7b, #114a65);
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    color: #FFF;
+    color:  #fff;
     text-align: center;
 }
 
@@ -226,29 +233,6 @@ h1, h2, h3 {
     animation: fadeInUp 1.2s ease;
 }
 
-@keyframes fadeInDown {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
 .btn {
     background-color: #f39c10;
     color: #2C3E50;
@@ -259,7 +243,7 @@ h1, h2, h3 {
     font-size: 18px;
     font-weight: bold;
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    transition: background-color 0.9s, transform 0.3s, box-shadow 0.3s;
 }
 
 .btn:hover {

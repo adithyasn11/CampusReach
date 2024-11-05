@@ -8,9 +8,9 @@
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
-    background: linear-gradient(120deg, #5fd68b, #5c9ec0); /* Greenish gradient */
+    background: linear-gradient(135deg, #3c8b7b, #114a65);
     color: #333;
-    line-height: 1.6;
+    line-height: 2;
     transition: background 1s ease;
 }
 
@@ -25,16 +25,20 @@ h1, h2, h3 {
 }
 
 .navbar {
-    background-color: #2C3E50;
-    padding: 10px 0; 
+    background: linear-gradient(13deg, #4d5b61, #092c34);
+    height: 55px;
+    padding: 0 20px; 
     position: sticky;
     top: 0;
     z-index: 1000;
-    transition: background-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+    box-shadow: 0px 4px 20px rgba(245, 240, 240, 0.2);    
+    transition: box-shadow 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
 }
 
 .navbar:hover {
-    background-color: #34495E;
+    background: linear-gradient(13deg, #092c34, #4d5b61);
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -42,6 +46,8 @@ h1, h2, h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%; /* Ensure it spans the navbar */
+    max-width: 1200px;
 }
 
 .logo {
@@ -51,8 +57,8 @@ h1, h2, h3 {
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 2px;
-    transition: transform 0.3s ease-in-out;
     margin-left: 20px;
+    transition: transform 0.3s ease-in-out;
 }
 
 .logo:hover {
@@ -70,7 +76,7 @@ h1, h2, h3 {
     color: #FFFFFF;
     text-decoration: none;
     font-weight: bold;
-    padding: 8px 16px; 
+    padding: 8px 16px; /* Consistent padding */
     border-radius: 30px;
     border: 2px solid #F39C12;
     transition: all 0.4s ease;
@@ -101,7 +107,7 @@ h1, h2, h3 {
 
 .hamburger .bar {
     width: 25px;
-    height: 3px;
+    height: 2px;
     background-color: #fff;
     margin: 4px 0;
     transition: all 0.3s ease;
@@ -151,7 +157,8 @@ h1, h2, h3 {
 .side-menu a {
     display: block;
     padding: 20px 20px;
-    text-align: left;
+    text-align: center;
+    font-size: large;
     color: #fff;
     text-decoration: none;
     font-weight: 500;
@@ -190,7 +197,7 @@ h1, h2, h3 {
     max-width: 350px;
     margin: 50px auto;
     padding: 20px; 
-    background: linear-gradient(135deg, #1f6758, #5c89c1); /* Green gradient */
+    background: linear-gradient(135deg, #153e51, #5e7e77);
     border-radius: 15px; 
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
     color: rgb(255, 255, 255); /* White text color for contrast */
@@ -262,35 +269,6 @@ h1, h2, h3 {
 
 .login-form p a:hover {
     text-decoration: underline;
-}
-
-/* Error Message Styles */
-.error-message{
-    color: #ff4d4d;               /* Red text color for error */
-    background-color: #ffe6e6;    /* Light red background for visibility */
-    padding: 10px;                /* Padding for space inside the error box */
-    border: 1px solid #ff4d4d;    /* Red border for emphasis */
-    border-radius: 5px;           /* Rounded corners */
-    margin-bottom: 15px;          /* Space below the error message */
-    display: none;                /* Hidden by default, shown when there's an error */
-    text-align: center;           /* Center text */
-    font-weight: bold;            /* Bold text for visibility */
-    font-size: 0.9em;             /* Slightly smaller font size for subtlety */
-}
-
-/* Optional animation for the error message (fade-in effect) */
-.error-message.show{
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-/* Keyframes for fade-in animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
 }
 
 @keyframes slideIn {
@@ -407,3 +385,40 @@ footer .container {
         margin-bottom: 20px;
     }
 }
+
+.password-container {
+    position: relative;
+}
+
+.password-container input[type="password"], 
+.password-container input[type="text"] {
+    width: 100%;
+    padding-right: 40px; 
+}
+
+.password-container i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #ccc;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.password-container i:hover {
+    color: #F39C12;
+}
+
+.error-message {
+    color: #4b0707;
+    background-color: #e9a4a4;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    text-align: center;
+    display: none;
+    border: red;
+}
+

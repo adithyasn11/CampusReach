@@ -8,7 +8,7 @@
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
-    background: linear-gradient(120deg, #84fab0, #8fd3f4);
+    background: linear-gradient(135deg, #3c8b7b, #114a65);
     color: #333;
     line-height: 1.6;
     transition: background 1s ease;
@@ -25,16 +25,20 @@ h1, h2, h3 {
 }
 
 .navbar {
-    background-color: #2C3E50;
-    padding: 10px 0; 
+    background: linear-gradient(13deg, #4d5b61, #092c34);
+    height: 55px;
+    padding: 0 20px; 
     position: sticky;
     top: 0;
     z-index: 1000;
-    transition: background-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+    box-shadow: 0px 4px 20px rgba(245, 240, 240, 0.2);    
+    transition: box-shadow 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
 }
 
 .navbar:hover {
-    background-color: #34495E;
+    background: linear-gradient(13deg, #092c34, #4d5b61);
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -42,6 +46,8 @@ h1, h2, h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%; /* Ensure it spans the navbar */
+    max-width: 1200px;
 }
 
 .logo {
@@ -51,8 +57,8 @@ h1, h2, h3 {
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 2px;
-    transition: transform 0.3s ease-in-out;
     margin-left: 20px;
+    transition: transform 0.3s ease-in-out;
 }
 
 .logo:hover {
@@ -70,7 +76,7 @@ h1, h2, h3 {
     color: #FFFFFF;
     text-decoration: none;
     font-weight: bold;
-    padding: 8px 16px; 
+    padding: 8px 16px; /* Consistent padding */
     border-radius: 30px;
     border: 2px solid #F39C12;
     transition: all 0.4s ease;
@@ -101,34 +107,33 @@ h1, h2, h3 {
 
 .hamburger .bar {
     width: 25px;
-    height: 3px;
+    height: 2px;
     background-color: #fff;
     margin: 4px 0;
     transition: all 0.3s ease;
 }
 
+/* Side Menu */
 .side-menu {
     position: fixed;
     top: 10%;
     right: 10px;
     height: 60%;
-    width: 250px; 
-    background-color: #2C3E50; 
+    width: 250px;
+    background-color: #2C3E50;
     padding-top: 30px;
     z-index: 1000;
     box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
     transform: translateX(110%);
     transition: transform 0.4s ease, box-shadow 0.3s ease;
-    overflow-y: auto; 
+    overflow-y: auto;
     border-radius: 10px;
-    overflow-y: auto; 
 }
 
 .side-menu.show {
     transform: translateX(0);
     animation: slideIn 0.5s ease-in-out;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
-    animation: none;
 }
 
 .close-btn {
@@ -140,7 +145,6 @@ h1, h2, h3 {
     cursor: pointer;
     transition: transform 0.3s ease, color 0.3s ease;
     z-index: 1001;
-    overflow: hidden;
 }
 
 .close-btn:hover {
@@ -151,21 +155,22 @@ h1, h2, h3 {
 .side-menu a {
     display: block;
     padding: 20px 20px;
-    text-align: left;
+    text-align: center;
+    font-size: large;
     color: #fff;
     text-decoration: none;
     font-weight: 500;
-    border-radius: 8px; 
+    border-radius: 8px;
     margin: 10px 0;
-    transition: all 0.9s ease; 
-    background-color: rgba(255, 255, 255, 0.1); 
+    transition: all 0.9s ease;
+    background-color: rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
 }
 
 .side-menu a:hover {
-    color: #2C3E50; 
-    transform: translateX(-5px); 
+    color: #2C3E50;
+    transform: translateX(-5px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border-radius: 15px;
 }
@@ -186,21 +191,21 @@ h1, h2, h3 {
     left: 0;
 }
 
-
+/* Signup Form */
 .signup-form {
     max-width: 350px;
-    margin: 50px auto;
+    margin: 30px auto;
     padding: 20px;
-    background: linear-gradient(135deg, #1ABC9C, #16A085); 
+    background: linear-gradient(135deg, #153e51, #5e7e77);
     border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     color: rgb(255, 255, 255);
 }
 
 .signup-form h2 {
     text-align: center;
     font-family: 'Playfair Display', serif;
-    font-size: 2em; 
+    font-size: 2em;
     margin-bottom: 25px;
 }
 
@@ -220,13 +225,19 @@ h1, h2, h3 {
     padding: 10px;
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 8px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background-color: transparent; /* Transparent input background */
+    background-color: transparent;
     color: white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #f0f0f0; /* Lighter border on focus */
+    outline: none;
+    box-shadow: 0 0 10px rgba(240, 240, 240, 0.3); /* White glow on focus */
 }
 
 .signup-form button {
-    background-color: #F39C12; /* Keep the orange button */
+    background-color: #F39C12;
     color: #2C3E50;
     border: none;
     border-radius: 50px;
@@ -234,24 +245,24 @@ h1, h2, h3 {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    width: 100%; 
-    font-size: 16px; 
+    width: 100%;
+    font-size: 16px;
     padding: 12px 25px;
 }
 
 .signup-form button:hover {
     background-color: #F7CA18;
-    transform: translateY(-2px); 
+    transform: translateY(-2px);
 }
 
 .signup-form p {
     text-align: center;
-    margin-top: 20px; 
+    margin-top: 20px;
     font-size: 0.9em;
 }
 
 .signup-form p a {
-    color: #F39C12; /* Keep the orange link */
+    color: #F39C12;
     text-decoration: none;
 }
 
@@ -259,47 +270,28 @@ h1, h2, h3 {
     text-decoration: underline;
 }
 
-.signup-form p a:hover {
-    text-decoration: underline;
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;  
-    }
-}
-
+/* Footer */
 footer {
     background-color: #2C3E50;
     color: #ECF0F1;
     padding: 40px 0;
-    margin-top: 1px;
-    
 }
 
 footer .container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
 }
 
 .footer-columns {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    max-width: 900px; 
+    max-width: 900px;
     margin-bottom: 20px;
 }
 
-.col-about, 
-.col-links, 
-.col-contact {
+.col-about, .col-links, .col-contact {
     width: calc(33.33% - 20px);
     text-align: left;
 }
@@ -334,15 +326,11 @@ footer .container {
     justify-content: center;
     align-items: center;
     gap: 20px;
-    margin-bottom: 10px; 
-}
-
-.social-icons a {
-    display: block;
+    margin-bottom: 10px;
 }
 
 .social-icons a i {
-    color: white; 
+    color: white;
     font-size: 24px;
 }
 
@@ -362,7 +350,7 @@ footer .container {
 
     .side-menu {
         width: 200px;
-        overflow-y: hidden; 
+        overflow-y: hidden;
     }
 
     .footer-columns {
@@ -370,9 +358,7 @@ footer .container {
         align-items: center;
     }
 
-    .col-about, 
-    .col-links, 
-    .col-contact {
+    .col-about, .col-links, .col-contact {
         width: 100%;
         margin-bottom: 20px;
     }
