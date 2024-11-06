@@ -4,13 +4,18 @@ import bcrypt from 'bcrypt';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { MongoClient, ServerApiVersion } from 'mongodb';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const SALT_ROUNDS = 10;
 
-// MongoDB connection
-const uri = "mongodb+srv://adithyasn2487:Adithya452005@campusreach.j19dc.mongodb.net/?retryWrites=true&w=majority&appName=CampusReach";
+// Use the MongoDB URI from environment variables
+const uri = process.env.MONGODB_URI;
+
 const client = new MongoClient(uri, {
     serverApi: {
         version: ServerApiVersion.v1,
@@ -18,6 +23,9 @@ const client = new MongoClient(uri, {
         deprecationErrors: true,
     },
 });
+
+// ... Rest of your code
+
 
 async function connectDB() {
     try {
@@ -31,7 +39,7 @@ async function connectDB() {
 }
 connectDB();
 
-// Define user schema and collection
+// Define MongoDB collection
 const usersCollection = client.db("login").collection("users");
 
 app.use(bodyParser.json());
