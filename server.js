@@ -1,55 +1,61 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { MongoClient, ServerApiVersion } from 'mongodb';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const SALT_ROUNDS = 10;
 
-mongoose.connect('mongodb+srv://adithyasn2487:Adithya452005@campusreach.j19dc.mongodb.net/login')
-    .then(() => console.log('MongoDB connected'))
-    .catch((error) => {
-        console.error('MongoDB connection error:', error);
-        process.exit(1);
-    });
-
-
-const userSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
+// MongoDB connection
+const uri = "mongodb+srv://adithyasn2487:Adithya452005@campusreach.j19dc.mongodb.net/?retryWrites=true&w=majority&appName=CampusReach";
+const client = new MongoClient(uri, {
+    serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+    },
 });
 
-const User = mongoose.model('User', userSchema);
+async function connectDB() {
+    try {
+        await client.connect();
+        await client.db("admin").command({ ping: 1 });
+        console.log("Pinged your deployment. Successfully connected to MongoDB!");
+    } catch (error) {
+        console.error("MongoDB connection error:", error);
+        process.exit(1);
+    }
+}
+connectDB();
+
+// Define user schema and collection
+const usersCollection = client.db("login").collection("users");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-
 app.post('/signup', async (req, res) => {
     const { name, email, password } = req.body; 
     try {
-        const existingUser = await User.findOne({ email });
+        const existingUser = await usersCollection.findOne({ email });
         if (existingUser) {
             return res.json({ success: false, message: 'Email already exists' });
         }
 
         const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-        const newUser = new User({ name, email, password: hashedPassword });
-        await newUser.save();
+        const newUser = { name, email, password: hashedPassword };
+        await usersCollection.insertOne(newUser);
 
         res.json({ success: true, message: 'Signup successful', redirectUrl: '/home.html' });
     } catch (error) {
@@ -58,11 +64,10 @@ app.post('/signup', async (req, res) => {
     }
 });
 
-
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
-        const user = await User.findOne({ email });
+        const user = await usersCollection.findOne({ email });
 
         if (user) {
             const isMatch = await bcrypt.compare(password, user.password);
