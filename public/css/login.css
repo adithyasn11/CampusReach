@@ -46,7 +46,7 @@ h1, h2, h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%; /* Ensure it spans the navbar */
+    width: 100%;
     max-width: 1200px;
 }
 
@@ -76,7 +76,7 @@ h1, h2, h3 {
     color: #FFFFFF;
     text-decoration: none;
     font-weight: bold;
-    padding: 8px 16px; /* Consistent padding */
+    padding: 8px 16px;
     border-radius: 30px;
     border: 2px solid #F39C12;
     transition: all 0.4s ease;
@@ -200,7 +200,7 @@ h1, h2, h3 {
     background: linear-gradient(135deg, #153e51, #5e7e77);
     border-radius: 15px; 
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
-    color: rgb(255, 255, 255); /* White text color for contrast */
+    color: rgb(255, 255, 255);
 }
 
 .login-form h2 {
@@ -224,21 +224,21 @@ h1, h2, h3 {
 .form-group input {
     width: 100%;
     padding: 10px; 
-    border: 2px solid rgba(255, 255, 255, 0.5); /* Semi-transparent white border */
+    border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 8px; 
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background-color: transparent; /* Transparent input background */
-    color: white; /* White input text color */
+    background-color: transparent;
+    color: white;
 }
 
 .form-group input:focus {
-    border-color: #f0f0f0; /* Lighter border on focus */
+    border-color: #f0f0f0;
     outline: none;
-    box-shadow: 0 0 10px rgba(240, 240, 240, 0.3); /* White glow on focus */
+    box-shadow: 0 0 10px rgba(240, 240, 240, 0.3);
 }
 
 .login-form button {
-    background-color: #F39C12; /* Keep the orange button */
+    background-color: #F39C12;
     color: #2C3E50;
     border: none;
     border-radius: 50px;
@@ -263,7 +263,7 @@ h1, h2, h3 {
 }
 
 .login-form p a {
-    color: #F39C12; /* Keep the orange link */
+    color: #F39C12; 
     text-decoration: none;
 }
 
@@ -421,4 +421,3 @@ footer .container {
     display: none;
     border: red;
 }
-

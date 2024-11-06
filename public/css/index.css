@@ -25,8 +25,8 @@ h1, h2, h3 {
 
 .navbar {
     background: linear-gradient(13deg, #4d5b61, #092c34);
-    height: 55px; /* Fixed height for consistency */
-    padding: 0 20px; /* Adjust padding for consistent height */
+    height: 55px;
+    padding: 0 20px;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -45,7 +45,7 @@ h1, h2, h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%; /* Ensure it spans the navbar */
+    width: 100%;
     max-width: 1200px;
 }
 
@@ -75,7 +75,7 @@ h1, h2, h3 {
     color: #FFFFFF;
     text-decoration: none;
     font-weight: bold;
-    padding: 8px 16px; /* Consistent padding */
+    padding: 8px 16px;
     border-radius: 30px;
     border: 2px solid #F39C12;
     transition: all 0.4s ease;

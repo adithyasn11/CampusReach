@@ -363,3 +363,39 @@ footer .container {
         margin-bottom: 20px;
     }
 }
+
+.error-message {
+    color: #4b0707;
+    background-color: #e9a4a4;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    text-align: center;
+    display: none;
+    border: red;
+}
+
+/* Password container with eye icon */
+.password-container {
+    position: relative;
+}
+
+.password-container input[type="password"] {
+    width: 100%;
+    padding-right: 35px; /* space for eye icon */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #ccc;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+    color: #F39C12;
+}
