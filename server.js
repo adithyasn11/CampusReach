@@ -77,7 +77,7 @@ app.post('/signup', async (req, res) => {
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
-        const user = await User.findOne({ email });
+        const user = await usersCollection.findOne({ email });
 
         if (user) {
             const isMatch = await bcrypt.compare(password, user.password);
@@ -101,7 +101,8 @@ app.listen(PORT, () => {
 });
 
 app.use(cors({
-    origin: 'https://campus-reach.vercel.app/', 
+    origin: 'https://campus-reach.vercel.app', 
     methods: ['GET', 'POST'],
 }));
+
 
