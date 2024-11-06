@@ -50,7 +50,7 @@ document.getElementById("form").addEventListener("submit", async function(event)
     const password = document.getElementById("password").value;
 
     try {
-        const response = await fetch('/login', {
+        const response = await fetch('https://campus-reach.vercel.app/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
@@ -66,7 +66,7 @@ document.getElementById("form").addEventListener("submit", async function(event)
             errorMessageElement.style.display = "block";
         }
     } catch (error) {
-        console.error("Error:", error);
-        alert("An error occurred. Please try again.");
+        console.error("Error occurred:", error);
+        alert(`An error occurred: ${error.message || "Please try again."}`);
     }
 });
