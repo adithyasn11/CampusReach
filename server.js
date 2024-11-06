@@ -77,7 +77,7 @@ app.post('/signup', async (req, res) => {
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
-        const user = await usersCollection.findOne({ email });
+        const user = await User.findOne({ email });
 
         if (user) {
             const isMatch = await bcrypt.compare(password, user.password);
@@ -94,6 +94,7 @@ app.post('/login', async (req, res) => {
         res.status(500).json({ success: false, message: 'Server error, please try again' });
     }
 });
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

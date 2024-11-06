@@ -55,6 +55,9 @@ document.getElementById("form").addEventListener("submit", async function(event)
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
         });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
         const result = await response.json();
 
