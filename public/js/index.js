@@ -15,3 +15,11 @@ window.addEventListener('resize', () => {
         sideMenu.classList.remove('show');
     }
 });
+
+const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+        document.querySelectorAll('.local-link').forEach(link => {
+            if (!isLocalhost) link.style.display = 'none';
+        });
+        document.querySelectorAll('.github-link').forEach(link => {
+            if (isLocalhost) link.style.display = 'none';
+        });
