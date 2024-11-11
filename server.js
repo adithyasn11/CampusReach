@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const SALT_ROUNDS = 10;
 
-const uri = "mongodb+srv://sourav123:sourav12345@campusreach.j19dc.mongodb.net/?retryWrites=true&w=majority&appName=CampusReach";
+const uri = "mongodb+srv://adithyasn2487:adithya452005@campusreach.j19dc.mongodb.net/?retryWrites=true&w=majority&appName=CampusReach";
 
 const client = new MongoClient(uri, {
   serverApi: {
