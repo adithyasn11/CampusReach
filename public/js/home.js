@@ -9,13 +9,11 @@ document.getElementById("close-btn").addEventListener("click", function() {
 
 // Typing effect for greeting message with dynamic user name
 document.addEventListener("DOMContentLoaded", async function () {
-    // Fetch the user's name from localStorage or use 'User' as default
+    // Retrieve userName from localStorage or use 'User' as a default
     let userName = localStorage.getItem('userName') || 'User';
 
-    // Check if the user's name needs to be fetched from the server
     if (!userName || userName === 'User') {
         try {
-            // Make an API call to fetch the user name from the server if not available in localStorage
             const response = await fetch('/getUserName', {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' }
@@ -23,26 +21,46 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             if (response.ok) {
                 const data = await response.json();
-                userName = data.userName;
-                localStorage.setItem('userName', userName); // Cache the user's name in localStorage
+                userName = data.userName || 'User';
+                localStorage.setItem('userName', userName);
+            } else {
+                console.error('Failed to retrieve user name from server.');
+                userName = 'User';
             }
         } catch (error) {
             console.error("Error fetching user name:", error);
+            userName = 'User';
         }
     }
 
     const greetingMessage = `Welcome, ${userName}!`;
+    const secondaryMessage = `Explore our latest features and tools to enhance your campus experience.`;
     const greetingText = document.getElementById('greetingText');
-    let i = 0;
+    const secondaryText = document.createElement('h2'); // Create a new element for the second line
+    secondaryText.classList.add('secondary-greeting');
+    greetingText.parentNode.appendChild(secondaryText); // Append below the first greeting
+
+    let i = 0, j = 0;
 
     // Typing effect for greeting message
-    function typeLetter() {
+    function typeGreeting() {
         if (i < greetingMessage.length) {
             greetingText.innerHTML += greetingMessage.charAt(i);
             i++;
-            setTimeout(typeLetter, 100); // Adjust typing speed here
+            setTimeout(typeGreeting, 100); // Adjust typing speed here
+        } else {
+            setTimeout(typeSecondaryMessage, 500); // Delay before starting the secondary message
         }
     }
 
-    typeLetter();
+    // Typing effect for secondary message
+    function typeSecondaryMessage() {
+        if (j < secondaryMessage.length) {
+            secondaryText.innerHTML += secondaryMessage.charAt(j);
+            j++;
+            setTimeout(typeSecondaryMessage, 40); // Adjust typing speed here for secondary message
+        }
+    }
+
+    typeGreeting(); // Start typing the greeting message
 });

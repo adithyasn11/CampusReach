@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import bcrypt from 'bcrypt';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import session from 'express-session';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 
 const app = express();
@@ -29,24 +30,34 @@ async function connectToMongoDB() {
     usersCollection = db.collection("users");
   } catch (error) {
     console.error("MongoDB connection error:", error);
-    process.exit(1);  // Stop server if connection fails
+    process.exit(1);
   }
 }
 
-// Call `connectToMongoDB` once when starting the server
 connectToMongoDB();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Configure session middleware
+app.use(
+  session({
+    secret: 'your_secret_key', // Replace with a strong secret key in production
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, maxAge: 600000 }, // Set `secure: true` in production with HTTPS
+  })
+);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/index.html')); // Adjusted path to serve index.html from the root
+  res.sendFile(path.join(__dirname, '/index.html'));
 });
 
+// User signup
 app.post('/signup', async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -66,6 +77,7 @@ app.post('/signup', async (req, res) => {
   }
 });
 
+// User login
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -74,7 +86,9 @@ app.post('/login', async (req, res) => {
     if (user) {
       const isMatch = await bcrypt.compare(password, user.password);
       if (isMatch) {
-        res.json({ success: true, redirectUrl: '/home.html', userName: user.name });
+        // Store user data in session
+        req.session.user = { name: user.name, email: user.email };
+        res.json({ success: true, redirectUrl: '/home.html', userName: user.name, userEmail: user.email });
       } else {
         res.json({ success: false, message: 'Invalid email or password' });
       }
@@ -87,19 +101,67 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// Add this to server.js
-app.get('/getUserName', (req, res) => {
-  // Assuming the user data is stored in the session or similar server-side storage
-  const user = { userName: "John Doe" }; // Replace with your actual logic to get the user’s name
-
-  if (user && user.userName) {
-      res.json({ userName: user.userName });
+// Middleware to check if user is authenticated
+function isAuthenticated(req, res, next) {
+  if (req.session.user) {
+    next();
   } else {
-      res.status(404).json({ error: "User not found" });
+    res.status(401).json({ message: "Please log in to access this page." });
+  }
+}
+
+// Get profile data for logged-in user
+app.get('/api/profile', isAuthenticated, async (req, res) => {
+  try {
+    const user = await usersCollection.findOne({ email: req.session.user.email });
+
+    if (user) {
+      res.json({
+        username: user.name,
+        email: user.email,
+        phone: user.phone || "",
+        alternateEmail: user.alternateEmail || "",
+        address: user.address || ""
+      });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    res.status(500).json({ message: "Server error, please try again" });
   }
 });
 
+// Update profile data for logged-in user
+app.put('/api/profile', isAuthenticated, async (req, res) => {
+  const { phone, alternateEmail, address } = req.body;
 
+  try {
+    const result = await usersCollection.updateOne(
+      { email: req.session.user.email },
+      { $set: { phone, alternateEmail, address } }
+    );
+
+    if (result.modifiedCount > 0) {
+      res.json({ message: "Profile updated successfully" });
+    } else {
+      res.status(400).json({ message: "Failed to update profile" });
+    }
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).json({ message: "Server error, please try again" });
+  }
+});
+
+// Logout route to destroy session
+app.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ message: "Failed to log out" });
+    }
+    res.json({ message: "Logged out successfully" });
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
