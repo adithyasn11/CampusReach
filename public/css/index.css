@@ -7,14 +7,14 @@
 }
 
 body {
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Dancing Script', cursive;
     background: linear-gradient(120deg, #F0F4F8, #ECF0F1, #E0E7FF);
     color: #333;
     line-height: 1.6;
     transition: background 1s ease;
 }
 h1, h2, h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Dancing Script', cursive;
 }
 
 .container {
@@ -80,6 +80,7 @@ h1, h2, h3 {
     border: 2px solid #F39C12;
     transition: all 0.4s ease;
     position: relative;
+    font-family: 'Dancing Script', cursive;
 }
 
 .nav-links a:hover {
@@ -156,7 +157,7 @@ h1, h2, h3 {
 
 .side-menu a {
     display: block;
-    padding: 20px 20px;
+    padding: 10px 20px;
     text-align: center;
     font-size: large;
     color: #fff;
@@ -168,6 +169,7 @@ h1, h2, h3 {
     background-color: rgba(255, 255, 255, 0.1); 
     position: relative;
     overflow: hidden; 
+    font-family: 'Dancing Script', cursive;
 }
 
 .side-menu a:hover {

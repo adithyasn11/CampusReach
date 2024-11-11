@@ -7,7 +7,7 @@
 }
 
 body {
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Dancing Script', cursive;
     background: linear-gradient(135deg, #3c8b7b, #114a65);
     color: #333;
     line-height: 1.6;
@@ -15,7 +15,7 @@ body {
 }
 
 h1, h2, h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Dancing Script', cursive;
 }
 
 .container {
@@ -81,6 +81,7 @@ h1, h2, h3 {
     border: 2px solid #F39C12;
     transition: all 0.4s ease;
     position: relative;
+    font-family: 'Dancing Script', cursive;
 }
 
 .nav-links a:hover {
@@ -154,7 +155,7 @@ h1, h2, h3 {
 
 .side-menu a {
     display: block;
-    padding: 20px 20px;
+    padding: 10px 20px;
     text-align: center;
     font-size: large;
     color: #fff;
@@ -166,6 +167,7 @@ h1, h2, h3 {
     background-color: rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
+    font-family: 'Dancing Script', cursive;
 }
 
 .side-menu a:hover {
@@ -207,6 +209,7 @@ h1, h2, h3 {
     font-family: 'Playfair Display', serif;
     font-size: 2em;
     margin-bottom: 25px;
+    font-family: 'Dancing Script', cursive;
 }
 
 .form-group {
@@ -248,6 +251,7 @@ h1, h2, h3 {
     width: 100%;
     font-size: 16px;
     padding: 12px 25px;
+    font-family: 'Dancing Script', cursive;
 }
 
 .signup-form button:hover {

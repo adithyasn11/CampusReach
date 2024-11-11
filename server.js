@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const SALT_ROUNDS = 10;
 
-const uri = "mongodb+srv://adithyasn2487:adithya452005@campusreach.j19dc.mongodb.net/?retryWrites=true&w=majority&appName=CampusReach";
+const uri = "mongodb+srv://adithyasn2487:Adithya452005@campusreach.j19dc.mongodb.net/?retryWrites=true&w=majority&appName=CampusReach";
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -41,7 +41,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-app.use(express.static(path.join(__dirname, 'public/css')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/index.html')); // Adjusted path to serve index.html from the root
@@ -59,7 +59,7 @@ app.post('/signup', async (req, res) => {
     const newUser = { name, email, password: hashedPassword };
     await usersCollection.insertOne(newUser);
 
-    res.json({ success: true, message: 'Signup successful', redirectUrl: '/home.html' });
+    res.json({ success: true, message: 'Signup successful', redirectUrl: '/login.html' });
   } catch (error) {
     console.error("Signup error:", error);
     res.status(500).json({ success: false, message: 'Server error, please try again' });
@@ -74,7 +74,7 @@ app.post('/login', async (req, res) => {
     if (user) {
       const isMatch = await bcrypt.compare(password, user.password);
       if (isMatch) {
-        res.json({ success: true, redirectUrl: 'public/home.html' });
+        res.json({ success: true, redirectUrl: '/home.html', userName: user.name });
       } else {
         res.json({ success: false, message: 'Invalid email or password' });
       }
@@ -86,6 +86,20 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ success: false, message: 'Server error, please try again' });
   }
 });
+
+// Add this to server.js
+app.get('/getUserName', (req, res) => {
+  // Assuming the user data is stored in the session or similar server-side storage
+  const user = { userName: "John Doe" }; // Replace with your actual logic to get the user’s name
+
+  if (user && user.userName) {
+      res.json({ userName: user.userName });
+  } else {
+      res.status(404).json({ error: "User not found" });
+  }
+});
+
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
