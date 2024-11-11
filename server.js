@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const SALT_ROUNDS = 10;
 
-const uri = "mongodb+srv://adithyasn2487:Adithya452005@campusreach.j19dc.mongodb.net/?retryWrites=true&w=majority&appName=CampusReach";
+const uri = "mongodb+srv://sourav123:sourav12345@campusreach.j19dc.mongodb.net/?retryWrites=true&w=majority&appName=CampusReach";
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -41,7 +41,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/css')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html')); // Adjusted path to serve index.html from the root
