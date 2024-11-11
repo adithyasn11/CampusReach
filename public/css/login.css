@@ -10,7 +10,7 @@ body {
     font-family: 'Source Sans Pro', sans-serif;
     background: linear-gradient(135deg, #3c8b7b, #114a65);
     color: #333;
-    line-height: 2;
+    line-height: 1.6;
     transition: background 1s ease;
 }
 
@@ -27,7 +27,7 @@ h1, h2, h3 {
 .navbar {
     background: linear-gradient(13deg, #4d5b61, #092c34);
     height: 55px;
-    padding: 0 20px; 
+    padding: 0 20px;
     position: sticky;
     top: 0;
     z-index: 1000;

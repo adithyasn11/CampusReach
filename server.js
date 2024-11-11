@@ -44,7 +44,7 @@ const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html')); // Adjusted path to serve index.html from the root
+  res.sendFile(path.join(__dirname, '/index.html')); // Adjusted path to serve index.html from the root
 });
 
 app.post('/signup', async (req, res) => {
@@ -74,7 +74,7 @@ app.post('/login', async (req, res) => {
     if (user) {
       const isMatch = await bcrypt.compare(password, user.password);
       if (isMatch) {
-        res.json({ success: true, redirectUrl: '/home.html' });
+        res.json({ success: true, redirectUrl: 'public/home.html' });
       } else {
         res.json({ success: false, message: 'Invalid email or password' });
       }
