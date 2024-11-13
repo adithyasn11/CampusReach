@@ -7,16 +7,23 @@ document.getElementById("close-btn").addEventListener("click", function() {
     document.getElementById("side-menu").classList.remove("show");
 });
 
+// Ensure side menu closes if screen is resized above mobile size
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+        document.getElementById("side-menu").classList.remove("show");
+    }
+});
+
 // Typing effect for greeting message with dynamic user name
 document.addEventListener("DOMContentLoaded", async function () {
-    // Retrieve userName from localStorage or use 'User' as a default
     let userName = localStorage.getItem('userName') || 'User';
 
     if (!userName || userName === 'User') {
         try {
             const response = await fetch('/getUserName', {
                 method: 'GET',
-                headers: { 'Content-Type': 'application/json' }
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include'
             });
 
             if (response.ok) {
@@ -36,31 +43,48 @@ document.addEventListener("DOMContentLoaded", async function () {
     const greetingMessage = `Welcome, ${userName}!`;
     const secondaryMessage = `Explore our latest features and tools to enhance your campus experience.`;
     const greetingText = document.getElementById('greetingText');
-    const secondaryText = document.createElement('h2'); // Create a new element for the second line
+    const secondaryText = document.createElement('h2');
     secondaryText.classList.add('secondary-greeting');
-    greetingText.parentNode.appendChild(secondaryText); // Append below the first greeting
+    greetingText.parentNode.appendChild(secondaryText);
 
     let i = 0, j = 0;
 
-    // Typing effect for greeting message
     function typeGreeting() {
         if (i < greetingMessage.length) {
             greetingText.innerHTML += greetingMessage.charAt(i);
             i++;
-            setTimeout(typeGreeting, 100); // Adjust typing speed here
+            setTimeout(typeGreeting, 100);
         } else {
-            setTimeout(typeSecondaryMessage, 500); // Delay before starting the secondary message
+            setTimeout(typeSecondaryMessage, 500);
         }
     }
 
-    // Typing effect for secondary message
     function typeSecondaryMessage() {
         if (j < secondaryMessage.length) {
             secondaryText.innerHTML += secondaryMessage.charAt(j);
             j++;
-            setTimeout(typeSecondaryMessage, 40); // Adjust typing speed here for secondary message
+            setTimeout(typeSecondaryMessage, 40);
         }
     }
 
-    typeGreeting(); // Start typing the greeting message
+    typeGreeting();
+});
+
+// Logout function
+document.getElementById("logout-button").addEventListener("click", async function() {
+    try {
+        const response = await fetch("/logout", {
+            method: "GET",
+            credentials: "include"
+        });
+
+        if (response.ok) {
+            localStorage.clear(); // Clear localStorage to remove any cached data
+            window.location.href = "/login.html";
+        } else {
+            alert("Logout failed. Please try again.");
+        }
+    } catch (error) {
+        console.error("Error during logout:", error);
+    }
 });

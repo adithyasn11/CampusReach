@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import session from 'express-session';
+import multer from 'multer';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 
 const app = express();
@@ -49,12 +50,31 @@ app.use(
   })
 );
 
+function noCache(req, res, next) {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.setHeader('Surrogate-Control', 'no-store');
+  next();
+}
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/index.html'));
+
+
+// Set up multer for image uploads (in memory for quick processing)
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+// Apply noCache middleware to protected routes
+app.get('/home.html', isAuthenticated, noCache, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'home.html'));
+});
+
+app.get('/profile.html', isAuthenticated, noCache, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'profile.html'));
 });
 
 // User signup
@@ -86,7 +106,6 @@ app.post('/login', async (req, res) => {
     if (user) {
       const isMatch = await bcrypt.compare(password, user.password);
       if (isMatch) {
-        // Store user data in session
         req.session.user = { name: user.name, email: user.email };
         res.json({ success: true, redirectUrl: '/home.html', userName: user.name, userEmail: user.email });
       } else {
@@ -121,7 +140,8 @@ app.get('/api/profile', isAuthenticated, async (req, res) => {
         email: user.email,
         phone: user.phone || "",
         alternateEmail: user.alternateEmail || "",
-        address: user.address || ""
+        address: user.address || "",
+        profilePic: user.profilePic || "" // Send profile picture if available
       });
     } else {
       res.status(404).json({ message: "User not found" });
@@ -153,13 +173,36 @@ app.put('/api/profile', isAuthenticated, async (req, res) => {
   }
 });
 
-// Logout route to destroy session
+// Endpoint to handle profile picture upload
+app.post('/api/uploadProfilePic', isAuthenticated, upload.single('profilePic'), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: "No file uploaded" });
+  }
+
+  try {
+    const base64Image = req.file.buffer.toString('base64');
+    const profilePicUrl = `data:${req.file.mimetype};base64,${base64Image}`;
+
+    await usersCollection.updateOne(
+      { email: req.session.user.email },
+      { $set: { profilePic: profilePicUrl } }
+    );
+
+    res.json({ message: "Profile picture updated successfully", imageUrl: profilePicUrl });
+  } catch (error) {
+    console.error("Error updating profile picture:", error);
+    res.status(500).json({ message: "Server error, please try again" });
+  }
+});
+
+// Logout route to destroy session and redirect to login page
 app.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).json({ message: "Failed to log out" });
     }
-    res.json({ message: "Logged out successfully" });
+    res.clearCookie('connect.sid'); // Clear session cookie
+    res.redirect('/login.html');
   });
 });
 

@@ -8,14 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar">
         <div class="container">
             <a href="home.html" class="logo">CampusReach</a>
             <ul class="nav-links">
                 <a href="home.html">Dashboard</a>
                 <a href="profile.html">Profile</a>
-                <a href="logout.html">Logout</a>
+                <a href="login.html" id="logout-button">Logout</a>
             </ul>
             <div class="hamburger" id="hamburger">
                 <span class="bar"></span>
@@ -25,21 +24,19 @@
         </div>
     </nav>
 
-    <!-- Side Menu for Mobile -->
     <div class="side-menu" id="side-menu">
         <span class="close-btn" id="close-btn">&times;</span>
         <a href="dashboard.html">Dashboard</a>
         <a href="profile.html">Profile</a>
-        <a href="logout.html">Logout</a>
+        <a href="login.html" id="logout-button">Logout</a>
     </div>
 
-    <!-- Profile Container -->
     <div class="profile-container">
         <div class="profile-card">
             <div class="profile-image">
                 <img id="profile-pic" src="img/dummy.jpg" alt="Profile Picture">
-                <!-- Update Profile Picture Button -->
-                <button class="update-pic-btn">
+                <input type="file" id="file-input" accept="image/*" style="display: none;">
+                <button class="update-pic-btn" onclick="document.getElementById('file-input').click();">
                     <i class="fa-solid fa-camera"></i>
                 </button>
             </div>
@@ -65,7 +62,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-columns">
@@ -97,7 +93,6 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
     <script src="js/profile.js"></script>
 </body>
 </html>

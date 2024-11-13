@@ -14,23 +14,24 @@ window.addEventListener('resize', () => {
     }
 });
 
+// Load profile data on page load
 document.addEventListener("DOMContentLoaded", async function() {
     try {
-        // Fetch profile data from the server (session-based)
         const response = await fetch(`/api/profile`, { method: 'GET', credentials: 'include' });
         if (!response.ok) throw new Error('Please log in first.');
 
         const userData = await response.json();
-        
-        // Display user data on the profile page
         document.getElementById('username').textContent = userData.username || 'N/A';
         document.getElementById('email').textContent = userData.email || 'N/A';
         document.getElementById('phone').value = userData.phone || '';
         document.getElementById('alternate-email').value = userData.alternateEmail || '';
         document.getElementById('address').value = userData.address || '';
+        
+        if (userData.profilePic) {
+            document.getElementById('profile-pic').src = userData.profilePic;
+        }
     } catch (error) {
         alert("Please log in first.");
-        console.error('Error loading profile:', error);
         window.location.href = "/login.html";
     }
 });
@@ -47,7 +48,7 @@ document.getElementById("save-button").addEventListener("click", async function(
         const response = await fetch('/api/profile', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            credentials: 'include', // Ensure credentials (session) are included
+            credentials: 'include',
             body: JSON.stringify(updatedData)
         });
 
@@ -55,5 +56,52 @@ document.getElementById("save-button").addEventListener("click", async function(
     } catch (error) {
         console.error("Error saving profile:", error);
         alert("Error updating profile.");
+    }
+});
+
+// Profile picture upload functionality
+document.getElementById("file-input").addEventListener("change", async function () {
+    const file = this.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("profilePic", file);
+
+    try {
+        const response = await fetch("/api/uploadProfilePic", {
+            method: "POST",
+            credentials: "include",
+            body: formData
+        });
+        const result = await response.json();
+
+        if (response.ok) {
+            document.getElementById("profile-pic").src = result.imageUrl;
+            alert("Profile picture updated successfully!");
+        } else {
+            alert(result.message || "Failed to upload profile picture.");
+        }
+    } catch (error) {
+        console.error("Error uploading profile picture:", error);
+        alert("An error occurred while uploading the profile picture.");
+    }
+});
+
+// Logout function
+document.getElementById("logout-button").addEventListener("click", async function() {
+    try {
+        const response = await fetch("/logout", {
+            method: "GET",
+            credentials: "include"
+        });
+
+        if (response.ok) {
+            localStorage.clear(); // Clear localStorage to remove any cached data
+            window.location.href = "/login.html";
+        } else {
+            alert("Logout failed. Please try again.");
+        }
+    } catch (error) {
+        console.error("Error during logout:", error);
     }
 });
