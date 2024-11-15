@@ -40,7 +40,7 @@ document.getElementById("form").addEventListener("submit", async function(event)
     const uppercaseUsn = usn.toUpperCase();
 
     try {
-        const response = await fetch('/signup', {
+        const response = await fetch('/api/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, usn: uppercaseUsn, email, password })

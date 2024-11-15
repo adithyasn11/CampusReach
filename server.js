@@ -8,6 +8,7 @@ import multer from 'multer';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import dotenv from 'dotenv';
 import MongoStore from 'connect-mongo';
+
 dotenv.config();
 
 const app = express();
@@ -22,7 +23,7 @@ const client = new MongoClient(uri, {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
-  }
+  },
 });
 
 let usersCollection;
@@ -90,7 +91,7 @@ app.get('/profile.html', isAuthenticated, noCache, (req, res) => {
 });
 
 // Signup route
-app.post('/signup', async (req, res) => {
+app.post('/api/signup', async (req, res) => {
   const { name, usn, email, password } = req.body;
   try {
     const existingUser = await usersCollection.findOne({ email });
@@ -110,7 +111,7 @@ app.post('/signup', async (req, res) => {
 });
 
 // Login route
-app.post('/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await usersCollection.findOne({ email });
@@ -174,11 +175,6 @@ app.put('/api/profile', isAuthenticated, async (req, res) => {
   try {
     const userEmail = req.session.user.email;
 
-    const user = await usersCollection.findOne({ email: userEmail });
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
     const result = await usersCollection.updateOne(
       { email: userEmail },
       { $set: { phone, usn, address } }
@@ -228,11 +224,12 @@ app.get('/logout', (req, res) => {
   });
 });
 
-// Vercel compatibility
+// Fallback for unmatched routes
 app.all('*', (req, res) => {
   res.status(404).send('Page not found.');
 });
 
+// Start server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

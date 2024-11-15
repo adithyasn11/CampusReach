@@ -55,7 +55,7 @@ document.getElementById("form").addEventListener("submit", async function(event)
 
     // Attempt to log in via the server
     try {
-        const response = await fetch('/login', {
+        const response = await fetch('/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
