@@ -19,11 +19,12 @@ document.getElementById("form").addEventListener("submit", async function(event)
     errorMessage.style.display = "none";
 
     const name = document.getElementById("name").value;
+    const usn = document.getElementById("usn").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirm-password").value;
 
-    if (name === "" || email === "" || password === "" || confirmPassword === "") {
+    if (name === "" || usn === "" || email === "" || password === "" || confirmPassword === "") {
         errorMessage.textContent = "Please fill out all fields.";
         errorMessage.style.display = "block";
         return;
@@ -35,11 +36,14 @@ document.getElementById("form").addEventListener("submit", async function(event)
         return;
     }
 
+    // Convert usn to uppercase
+    const uppercaseUsn = usn.toUpperCase();
+
     try {
         const response = await fetch('/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, password })
+            body: JSON.stringify({ name, usn: uppercaseUsn, email, password })
         });
 
         const result = await response.json();

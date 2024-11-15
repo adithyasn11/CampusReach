@@ -6,12 +6,16 @@ import { fileURLToPath } from 'url';
 import session from 'express-session';
 import multer from 'multer';
 import { MongoClient, ServerApiVersion } from 'mongodb';
+import dotenv from 'dotenv';
+import MongoStore from 'connect-mongo';
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const SALT_ROUNDS = 10;
 
-const uri = "mongodb+srv://adithyasn2487:Adithya452005@campusreach.j19dc.mongodb.net/?retryWrites=true&w=majority&appName=CampusReach";
+// MongoDB URI
+const uri = process.env.MONGO_URI || "your-default-mongodb-uri";
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -37,19 +41,33 @@ async function connectToMongoDB() {
 
 connectToMongoDB();
 
+// Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Configure session middleware
+// Static files configuration
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Session configuration using MongoStore
 app.use(
   session({
-    secret: 'your_secret_key', // Replace with a strong secret key in production
+    secret: process.env.SESSION_SECRET || 'default-secret-key',
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false, maxAge: 600000 }, // Set `secure: true` in production with HTTPS
+    store: MongoStore.create({
+      mongoUrl: uri,
+      collectionName: 'sessions',
+    }),
+    cookie: {
+      secure: process.env.NODE_ENV === 'production', // Set to true in production
+      maxAge: 600000, // 10 minutes
+    },
   })
 );
 
+// Middleware to prevent caching for authenticated routes
 function noCache(req, res, next) {
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
   res.setHeader('Pragma', 'no-cache');
@@ -58,17 +76,11 @@ function noCache(req, res, next) {
   next();
 }
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-app.use(express.static(path.join(__dirname, 'public')));
-
-
-
-// Set up multer for image uploads (in memory for quick processing)
+// Set up multer for image uploads
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// Apply noCache middleware to protected routes
+// Protected Routes
 app.get('/home.html', isAuthenticated, noCache, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'home.html'));
 });
@@ -77,9 +89,9 @@ app.get('/profile.html', isAuthenticated, noCache, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'profile.html'));
 });
 
-// User signup
+// Signup route
 app.post('/signup', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, usn, email, password } = req.body;
   try {
     const existingUser = await usersCollection.findOne({ email });
     if (existingUser) {
@@ -87,7 +99,7 @@ app.post('/signup', async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-    const newUser = { name, email, password: hashedPassword };
+    const newUser = { name, usn, email, password: hashedPassword };
     await usersCollection.insertOne(newUser);
 
     res.json({ success: true, message: 'Signup successful', redirectUrl: '/login.html' });
@@ -97,7 +109,7 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-// User login
+// Login route
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -129,7 +141,7 @@ function isAuthenticated(req, res, next) {
   }
 }
 
-// Get profile data for logged-in user
+// Profile APIs
 app.get('/api/profile', isAuthenticated, async (req, res) => {
   try {
     const user = await usersCollection.findOne({ email: req.session.user.email });
@@ -139,9 +151,9 @@ app.get('/api/profile', isAuthenticated, async (req, res) => {
         username: user.name,
         email: user.email,
         phone: user.phone || "",
-        alternateEmail: user.alternateEmail || "",
+        usn: user.usn || "",
         address: user.address || "",
-        profilePic: user.profilePic || "" // Send profile picture if available
+        profilePic: user.profilePic || "",
       });
     } else {
       res.status(404).json({ message: "User not found" });
@@ -152,14 +164,24 @@ app.get('/api/profile', isAuthenticated, async (req, res) => {
   }
 });
 
-// Update profile data for logged-in user
 app.put('/api/profile', isAuthenticated, async (req, res) => {
-  const { phone, alternateEmail, address } = req.body;
+  const { phone, usn, address } = req.body;
+
+  if (!req.session.user || !req.session.user.email) {
+    return res.status(400).json({ message: "User not authenticated" });
+  }
 
   try {
+    const userEmail = req.session.user.email;
+
+    const user = await usersCollection.findOne({ email: userEmail });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
     const result = await usersCollection.updateOne(
-      { email: req.session.user.email },
-      { $set: { phone, alternateEmail, address } }
+      { email: userEmail },
+      { $set: { phone, usn, address } }
     );
 
     if (result.modifiedCount > 0) {
@@ -173,7 +195,7 @@ app.put('/api/profile', isAuthenticated, async (req, res) => {
   }
 });
 
-// Endpoint to handle profile picture upload
+// Profile picture upload
 app.post('/api/uploadProfilePic', isAuthenticated, upload.single('profilePic'), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "No file uploaded" });
@@ -195,7 +217,7 @@ app.post('/api/uploadProfilePic', isAuthenticated, upload.single('profilePic'), 
   }
 });
 
-// Logout route to destroy session and redirect to login page
+// Logout route
 app.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
@@ -204,6 +226,11 @@ app.get('/logout', (req, res) => {
     res.clearCookie('connect.sid'); // Clear session cookie
     res.redirect('/login.html');
   });
+});
+
+// Vercel compatibility
+app.all('*', (req, res) => {
+  res.status(404).send('Page not found.');
 });
 
 app.listen(PORT, () => {

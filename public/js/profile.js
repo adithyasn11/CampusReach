@@ -24,8 +24,8 @@ document.addEventListener("DOMContentLoaded", async function() {
         document.getElementById('username').textContent = userData.username || 'N/A';
         document.getElementById('email').textContent = userData.email || 'N/A';
         document.getElementById('phone').value = userData.phone || '';
-        document.getElementById('alternate-email').value = userData.alternateEmail || '';
         document.getElementById('address').value = userData.address || '';
+        document.getElementById('usn').value = userData.usn || '';
         
         if (userData.profilePic) {
             document.getElementById('profile-pic').src = userData.profilePic;
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 document.getElementById("save-button").addEventListener("click", async function() {
     const updatedData = {
         phone: document.getElementById("phone").value,
-        alternateEmail: document.getElementById("alternate-email").value,
+        usn: document.getElementById("usn").value,
         address: document.getElementById("address").value
     };
 
