@@ -8,6 +8,7 @@ import multer from 'multer';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import dotenv from 'dotenv';
 import MongoStore from 'connect-mongo';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -233,3 +234,7 @@ app.all('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+import cors from 'cors';
+app.use(cors({ origin: 'https://campus-reach.vercel.app', credentials: true }));
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
