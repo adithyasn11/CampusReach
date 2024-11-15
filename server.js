@@ -8,7 +8,6 @@ import multer from 'multer';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import dotenv from 'dotenv';
 import MongoStore from 'connect-mongo';
-import cors from 'cors';
 
 dotenv.config();
 
