@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
 
 * {
     margin: 0;
@@ -7,14 +7,14 @@
 }
 
 body {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Poppins', sans-serif;
     background: linear-gradient(120deg, #F0F4F8, #ECF0F1, #E0E7FF);
     color: #333;
     line-height: 1.6;
     transition: background 1s ease;
 }
 h1, h2, h3 {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Playfair Display', serif;
 }
 
 .container {
@@ -80,7 +80,7 @@ h1, h2, h3 {
     border: 2px solid #F39C12;
     transition: all 0.4s ease;
     position: relative;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Poppins', sans-serif;
 }
 
 .nav-links a:hover {
@@ -169,7 +169,7 @@ h1, h2, h3 {
     background-color: rgba(255, 255, 255, 0.1); 
     position: relative;
     overflow: hidden; 
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Poppins', sans-serif;
 }
 
 .side-menu a:hover {
