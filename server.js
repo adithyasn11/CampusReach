@@ -57,6 +57,7 @@ const allowedOrigins = [
   'https://campus-reach.vercel.app',
   'http://localhost:3000',
   'http://127.0.0.1:5500',
+  'https://campus-reach-9vxxi7kua-adithyasn11s-projects.vercel.app',
 ];
 app.use(
   cors({
