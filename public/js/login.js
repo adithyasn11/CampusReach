@@ -1,14 +1,14 @@
 // Toggle side menu
-document.getElementById("hamburger").addEventListener("click", function() {
+document.getElementById("hamburger").addEventListener("click", function () {
     document.getElementById("side-menu").classList.add("show");
 });
 
-document.getElementById("close-btn").addEventListener("click", function() {
+document.getElementById("close-btn").addEventListener("click", function () {
     document.getElementById("side-menu").classList.remove("show");
 });
 
 // Hide side menu if window is resized above 768px
-window.addEventListener('resize', () => {
+window.addEventListener("resize", () => {
     if (window.innerWidth > 768) {
         document.getElementById("side-menu").classList.remove("show");
     }
@@ -21,7 +21,7 @@ function validateEmail(email) {
 }
 
 // Toggle password visibility
-document.getElementById("togglePassword").addEventListener("click", function() {
+document.getElementById("togglePassword").addEventListener("click", function () {
     const passwordInput = document.getElementById("password");
     const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
     passwordInput.setAttribute("type", type);
@@ -30,15 +30,21 @@ document.getElementById("togglePassword").addEventListener("click", function() {
     this.classList.toggle("fa-eye-slash");
 });
 
+// API Base URL for requests
+const API_BASE_URL = window.location.hostname.includes("localhost")
+    ? "http://localhost:3000" // Local server
+    : "https://campus-reach.vercel.app"; // Vercel deployment
+
+
 // Form submission
-document.getElementById("form").addEventListener("submit", async function(event) {
+document.getElementById("form").addEventListener("submit", async function (event) {
     event.preventDefault();
 
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const errorMessageElement = document.getElementById("error-message");
-    
-    // Clear any previous error messages
+
+    // Clear previous error messages
     errorMessageElement.style.display = "none";
     errorMessageElement.textContent = "";
 
@@ -55,10 +61,10 @@ document.getElementById("form").addEventListener("submit", async function(event)
 
     // Attempt to log in via the server
     try {
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
+        const response = await fetch(`${API_BASE_URL}/api/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
         });
 
         if (!response.ok) {
@@ -68,10 +74,10 @@ document.getElementById("form").addEventListener("submit", async function(event)
         const result = await response.json();
 
         if (result.success) {
-            localStorage.setItem('userName', result.userName); // Store user's name for greeting
-            window.location.href = result.redirectUrl;
+            localStorage.setItem("userName", result.userName); // Store user's name for greeting
+            window.location.href = result.redirectUrl; // Redirect to the dashboard/home page
         } else {
-            errorMessageElement.textContent = result.message;
+            errorMessageElement.textContent = result.message; // Display server error message
             errorMessageElement.style.display = "block";
         }
     } catch (error) {

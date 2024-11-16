@@ -8,6 +8,7 @@ import multer from 'multer';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import dotenv from 'dotenv';
 import MongoStore from 'connect-mongo';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -16,7 +17,7 @@ const PORT = process.env.PORT || 3000;
 const SALT_ROUNDS = 10;
 
 // MongoDB URI
-const uri = process.env.MONGO_URI || "your-default-mongodb-uri";
+const uri = process.env.MONGODB_URI || "your-default-mongodb-uri";
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -50,6 +51,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, 'public')));
+
+// CORS Configuration
+const allowedOrigins = [
+  'https://campus-reach.vercel.app',
+  'http://localhost:3000',
+  'http://127.0.0.1:5500',
+];
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true, // Allow cookies and headers
+  })
+);
 
 // Session configuration using MongoStore
 app.use(
@@ -214,7 +228,7 @@ app.post('/api/uploadProfilePic', isAuthenticated, upload.single('profilePic'), 
 });
 
 // Logout route
-app.get('/logout', (req, res) => {
+app.get('/api/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).json({ message: "Failed to log out" });
@@ -233,7 +247,3 @@ app.all('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
-
-import cors from 'cors';
-app.use(cors({ origin: 'https://campus-reach.vercel.app', credentials: true }));
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
