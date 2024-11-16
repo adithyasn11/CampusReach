@@ -7,7 +7,7 @@
 }
 
 body {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Dancing Script', cursive';
     background: linear-gradient(135deg, #3c8b7b, #114a65);
     color: #333;
     line-height: 1.6;
@@ -15,7 +15,7 @@ body {
 }
 
 h1, h2, h3 {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Dancing Script', cursive';
 }
 
 .container {
@@ -60,7 +60,7 @@ h1, h2, h3 {
     letter-spacing: 2px;
     margin-left: 20px;
     transition: transform 0.3s ease-in-out;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Dancing Script', cursive';
 }
 
 .logo:hover {
@@ -83,7 +83,7 @@ h1, h2, h3 {
     border: 2px solid #F39C12;
     transition: all 0.4s ease;
     position: relative;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Dancing Script', cursive';
 }
 
 .nav-links a:hover {
@@ -171,7 +171,7 @@ h1, h2, h3 {
     background-color: rgba(255, 255, 255, 0.1); 
     position: relative;
     overflow: hidden;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Dancing Script', cursive';
 }
 
 .side-menu a:hover {
@@ -284,7 +284,7 @@ footer .container {
     width: 100%;
     max-width: 900px; 
     margin-bottom: 20px;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Dancing Script', cursive';
 }
 
 .col-about, .col-links, .col-contact {
@@ -295,14 +295,14 @@ footer .container {
 .col-links ul {
     list-style: none;
     padding: 0;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Dancing Script', cursive';
 }
 
 .col-links a {
     color: #fff;
     text-decoration: none;
     transition: color 0.3s ease;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Dancing Script', cursive';
 }
 
 .col-links a:hover {
@@ -317,7 +317,7 @@ footer .container {
 .footer-bottom p {
     font-size: 14px;
     color: #bdc3c7;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Dancing Script', cursive';
 }
 
 .social-icons {
