@@ -8,7 +8,6 @@
 }
 
 body {
-    
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #3c8b7b, #114a65);
     color: #333;
@@ -17,7 +16,7 @@ body {
 }
 
 h1, h2, h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display', se;
 
 }
 
