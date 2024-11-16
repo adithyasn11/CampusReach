@@ -239,9 +239,15 @@ app.get('/api/logout', (req, res) => {
 });
 
 // Fallback for unmatched routes
-app.all('*', (req, res) => {
-  res.status(404).send('Page not found.');
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+
+app.use((req, res, next) => {
+  console.log(`Incoming request: ${req.method} ${req.url}`);
+  next();
+});
+
 
 // Start server
 app.listen(PORT, () => {
