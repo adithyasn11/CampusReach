@@ -133,8 +133,8 @@ app.post("/api/login", async (req, res) => {
     if (user) {
       const isMatch = await bcrypt.compare(password, user.password);
       if (isMatch) {
-        req.session.user = { name: user.name, email: user.email };
-        res.json({ success: true, redirectUrl: "/home.html", userName: user.name, userEmail: user.email });
+        req.session.user = { username: user.name, email: user.email };
+        res.json({ success: true, redirectUrl: "/home.html", username: user.name, userEmail: user.email });
       } else {
         res.json({ success: false, message: "Invalid email or password" });
       }
@@ -158,26 +158,27 @@ function isAuthenticated(req, res, next) {
 
 // Profile APIs
 app.get("/api/profile", isAuthenticated, async (req, res) => {
-  try {
-    const user = await usersCollection.findOne({ email: req.session.user.email });
+    try {
+        const user = await usersCollection.findOne({ email: req.session.user.email });
 
-    if (user) {
-      res.json({
-        username: user.name,
-        email: user.email,
-        usn: user.usn || "N/A",
-        phone: user.phone || "",
-        address: user.address || "",
-        profilePic: user.profilePic || "",
-      });
-    } else {
-      res.status(404).json({ message: "User not found" });
+        if (user) {
+            res.json({
+                username: user.name,
+                email: user.email,
+                usn: user.usn || "N/A",
+                phone: user.phone || "",
+                address: user.address || "",
+                profilePic: user.profilePic || "",
+            });
+        } else {
+            res.status(404).json({ message: "User not found" });
+        }
+    } catch (error) {
+        console.error("Error fetching profile:", error);
+        res.status(500).json({ message: "Server error, please try again" });
     }
-  } catch (error) {
-    console.error("Error fetching profile:", error);
-    res.status(500).json({ message: "Server error, please try again" });
-  }
 });
+
 
 app.put("/api/profile", isAuthenticated, async (req, res) => {
   const { username, phone, address } = req.body;

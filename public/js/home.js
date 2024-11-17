@@ -1,85 +1,67 @@
 // Toggle side menu
-document.getElementById("hamburger").addEventListener("click", function() {
+document.getElementById("hamburger").addEventListener("click", function () {
     document.getElementById("side-menu").classList.add("show");
 });
 
-document.getElementById("close-btn").addEventListener("click", function() {
+document.getElementById("close-btn").addEventListener("click", function () {
     document.getElementById("side-menu").classList.remove("show");
 });
 
 // Ensure side menu closes if screen is resized above mobile size
-window.addEventListener('resize', () => {
+window.addEventListener("resize", () => {
     if (window.innerWidth > 768) {
         document.getElementById("side-menu").classList.remove("show");
     }
 });
 
 // Typing effect for greeting message with dynamic user name
-document.addEventListener("DOMContentLoaded", async function () {
-    let userName = localStorage.getItem('userName') || 'User';
-
-    if (!userName || userName === 'User') {
-        try {
-            const response = await fetch('/getUserName', {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include'
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                userName = data.userName || 'User';
-                localStorage.setItem('userName', userName);
-            } else {
-                console.error('Failed to retrieve user name from server.');
-                userName = 'User';
-            }
-        } catch (error) {
-            console.error("Error fetching user name:", error);
-            userName = 'User';
-        }
-    }
-
-    const greetingMessage = `Welcome, ${userName}!`;
-    const secondaryMessage = `Explore our latest features and tools to enhance your campus experience.`;
-    const greetingText = document.getElementById('greetingText');
-    const secondaryText = document.createElement('h2');
-    secondaryText.classList.add('secondary-greeting');
+document.addEventListener("DOMContentLoaded", function () {
+    const greetingText = document.getElementById("greetingText");
+    const secondaryText = document.createElement("h2");
+    secondaryText.classList.add("secondary-greeting");
     greetingText.parentNode.appendChild(secondaryText);
+
+    // Fetch the username from sessionStorage or set fallback
+    const username = sessionStorage.getItem("username") || "User";
+
+    const greetingMessage = `Welcome, ${username}!`;
+    const secondaryMessage = `Explore our latest features and tools to enhance your campus experience.`;
 
     let i = 0, j = 0;
 
+    // Typing effect for greeting message
     function typeGreeting() {
         if (i < greetingMessage.length) {
             greetingText.innerHTML += greetingMessage.charAt(i);
             i++;
-            setTimeout(typeGreeting, 100);
+            setTimeout(typeGreeting, 100); // Adjust typing speed here
         } else {
-            setTimeout(typeSecondaryMessage, 500);
+            setTimeout(typeSecondaryMessage, 500); // Delay before typing secondary message
         }
     }
 
+    // Typing effect for secondary message
     function typeSecondaryMessage() {
         if (j < secondaryMessage.length) {
             secondaryText.innerHTML += secondaryMessage.charAt(j);
             j++;
-            setTimeout(typeSecondaryMessage, 40);
+            setTimeout(typeSecondaryMessage, 40); // Adjust typing speed for secondary message
         }
     }
 
-    typeGreeting();
+    typeGreeting(); // Start typing the greeting message
 });
 
 // Logout function
-document.getElementById("logout-button").addEventListener("click", async function() {
+document.getElementById("logout-button").addEventListener("click", async function () {
     try {
-        const response = await fetch("/logout", {
+        const response = await fetch("/api/logout", {
             method: "GET",
-            credentials: "include"
+            credentials: "include",
         });
 
         if (response.ok) {
-            localStorage.clear(); // Clear localStorage to remove any cached data
+            sessionStorage.clear(); // Clear sessionStorage to remove any cached data
             window.location.href = "/login.html";
         } else {
             alert("Logout failed. Please try again.");

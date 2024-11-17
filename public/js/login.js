@@ -35,7 +35,6 @@ const API_BASE_URL = window.location.hostname.includes("localhost")
     ? "http://localhost:3000" // Local server
     : "https://campus-reach.vercel.app"; // Vercel deployment
 
-
 // Form submission
 document.getElementById("form").addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -74,7 +73,7 @@ document.getElementById("form").addEventListener("submit", async function (event
         const result = await response.json();
 
         if (result.success) {
-            localStorage.setItem("userName", result.userName); // Store user's name for greeting
+            sessionStorage.setItem("username", result.username); // Store user's name for greeting
             window.location.href = result.redirectUrl; // Redirect to the dashboard/home page
         } else {
             errorMessageElement.textContent = result.message; // Display server error message
