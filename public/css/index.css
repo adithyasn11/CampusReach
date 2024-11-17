@@ -8,14 +8,16 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(120deg, #F0F4F8, #ECF0F1, #E0E7FF);
+    background: linear-gradient(135deg, #3c8b7b, #114a65);
     color: #333;
     line-height: 1.6;
     transition: background 1s ease;
 }
+
 h1, h2, h3 {
     font-family: 'Playfair Display', serif;
 }
+
 
 .container {
     max-width: 1200px;
