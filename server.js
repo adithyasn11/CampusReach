@@ -158,26 +158,27 @@ function isAuthenticated(req, res, next) {
 
 // Profile APIs
 app.get("/api/profile", isAuthenticated, async (req, res) => {
-    try {
-        const user = await usersCollection.findOne({ email: req.session.user.email });
+  try {
+    const user = await usersCollection.findOne({ email: req.session.user.email });
 
-        if (user) {
-            res.json({
-                username: user.name,
-                email: user.email,
-                usn: user.usn || "N/A",
-                phone: user.phone || "",
-                address: user.address || "",
-                profilePic: user.profilePic || "",
-            });
-        } else {
-            res.status(404).json({ message: "User not found" });
-        }
-    } catch (error) {
-        console.error("Error fetching profile:", error);
-        res.status(500).json({ message: "Server error, please try again" });
+    if (user) {
+      res.json({
+        username: user.name, // Ensure this matches the key expected by the frontend
+        email: user.email,
+        usn: user.usn || "N/A",
+        phone: user.phone || "",
+        address: user.address || "",
+        profilePic: user.profilePic || "",
+      });
+    } else {
+      res.status(404).json({ message: "User not found" });
     }
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    res.status(500).json({ message: "Server error, please try again" });
+  }
 });
+
 
 
 app.put("/api/profile", isAuthenticated, async (req, res) => {
