@@ -22,10 +22,10 @@ document.addEventListener("DOMContentLoaded", async function() {
 
         const userData = await response.json();
         document.getElementById('username').textContent = userData.username || 'N/A';
+        document.getElementById('usn').textContent =userData.usn || 'N/A';
         document.getElementById('email').textContent = userData.email || 'N/A';
         document.getElementById('phone').value = userData.phone || '';
         document.getElementById('address').value = userData.address || '';
-        document.getElementById('usn').value = userData.usn || '';
         
         if (userData.profilePic) {
             document.getElementById('profile-pic').src = userData.profilePic;
@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", async function() {
 // Update profile data when save button is clicked
 document.getElementById("save-button").addEventListener("click", async function() {
     const updatedData = {
+        username: document.getElementById("username-input").value,
         phone: document.getElementById("phone").value,
-        usn: document.getElementById("usn").value,
         address: document.getElementById("address").value
     };
 
@@ -53,6 +53,7 @@ document.getElementById("save-button").addEventListener("click", async function(
         });
 
         alert(response.ok ? "Profile updated successfully!" : "Failed to update profile.");
+        if (response.ok) window.location.reload();
     } catch (error) {
         console.error("Error saving profile:", error);
         alert("Error updating profile.");
