@@ -45,9 +45,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (i < greetingMessage.length) {
           greetingText.innerHTML += greetingMessage.charAt(i);
           i++;
-          setTimeout(typeGreeting, 100); // Adjust typing speed here
+          setTimeout(typeGreeting, 50); // Adjust typing speed here
         } else {
-          setTimeout(typeSecondaryMessage, 500); // Delay before typing secondary message
+          setTimeout(typeSecondaryMessage, 200); // Delay before typing secondary message
         }
       }
   
