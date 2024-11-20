@@ -1,14 +1,14 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import bcrypt from 'bcrypt';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import session from 'express-session';
-import multer from 'multer';
-import { MongoClient, ServerApiVersion } from 'mongodb';
-import dotenv from 'dotenv';
-import MongoStore from 'connect-mongo';
-import cors from 'cors';
+import express from "express";
+import bodyParser from "body-parser";
+import bcrypt from "bcrypt";
+import path from "path";
+import { fileURLToPath } from "url";
+import session from "express-session";
+import multer from "multer";
+import { MongoClient, ServerApiVersion } from "mongodb";
+import dotenv from "dotenv";
+import MongoStore from "connect-mongo";
+import cors from "cors";
 
 dotenv.config();
 
@@ -50,14 +50,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Static files configuration
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 // CORS Configuration
 const allowedOrigins = [
-  'https://campus-reach.vercel.app',
-  'http://localhost:3000',
-  'http://127.0.0.1:5500',
-  'https://campus-reach-lze45p05y-adithyasn11s-projects.vercel.app',
+  "https://campus-reach.vercel.app",
+  "http://localhost:3000",
+  "http://127.0.0.1:5500",
 ];
 app.use(
   cors({
@@ -69,15 +68,15 @@ app.use(
 // Session configuration using MongoStore
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || 'default-secret-key',
+    secret: process.env.SESSION_SECRET || "default-secret-key",
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
       mongoUrl: uri,
-      collectionName: 'sessions',
+      collectionName: "sessions",
     }),
     cookie: {
-      secure: process.env.NODE_ENV === 'production', // Set to true in production
+      secure: process.env.NODE_ENV === "production", // Set to true in production
       maxAge: 600000, // 10 minutes
     },
   })
@@ -85,10 +84,10 @@ app.use(
 
 // Middleware to prevent caching for authenticated routes
 function noCache(req, res, next) {
-  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-  res.setHeader('Pragma', 'no-cache');
-  res.setHeader('Expires', '0');
-  res.setHeader('Surrogate-Control', 'no-store');
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
+  res.setHeader("Surrogate-Control", "no-store");
   next();
 }
 
@@ -97,36 +96,36 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 // Protected Routes
-app.get('/home.html', isAuthenticated, noCache, (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'home.html'));
+app.get("/home.html", isAuthenticated, noCache, (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "home.html"));
 });
 
-app.get('/profile.html', isAuthenticated, noCache, (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'profile.html'));
+app.get("/profile.html", isAuthenticated, noCache, (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "profile.html"));
 });
 
 // Signup route
-app.post('/api/signup', async (req, res) => {
+app.post("/api/signup", async (req, res) => {
   const { name, usn, email, password } = req.body;
   try {
     const existingUser = await usersCollection.findOne({ email });
     if (existingUser) {
-      return res.json({ success: false, message: 'Email already exists' });
+      return res.json({ success: false, message: "Email already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
     const newUser = { name, usn, email, password: hashedPassword };
     await usersCollection.insertOne(newUser);
 
-    res.json({ success: true, message: 'Signup successful', redirectUrl: '/login.html' });
+    res.json({ success: true, message: "Signup successful", redirectUrl: "/login.html" });
   } catch (error) {
     console.error("Signup error:", error);
-    res.status(500).json({ success: false, message: 'Server error, please try again' });
+    res.status(500).json({ success: false, message: "Server error, please try again" });
   }
 });
 
 // Login route
-app.post('/api/login', async (req, res) => {
+app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await usersCollection.findOne({ email });
@@ -134,17 +133,17 @@ app.post('/api/login', async (req, res) => {
     if (user) {
       const isMatch = await bcrypt.compare(password, user.password);
       if (isMatch) {
-        req.session.user = { name: user.name, email: user.email };
-        res.json({ success: true, redirectUrl: '/home.html', userName: user.name, userEmail: user.email });
+        req.session.user = { username: user.name, email: user.email };
+        res.json({ success: true, redirectUrl: "/home.html", username: user.name, userEmail: user.email });
       } else {
-        res.json({ success: false, message: 'Invalid email or password' });
+        res.json({ success: false, message: "Invalid email or password" });
       }
     } else {
-      res.json({ success: false, message: 'Invalid email or password' });
+      res.json({ success: false, message: "Invalid email or password" });
     }
   } catch (error) {
     console.error("Login error:", error);
-    res.status(500).json({ success: false, message: 'Server error, please try again' });
+    res.status(500).json({ success: false, message: "Server error, please try again" });
   }
 });
 
@@ -158,16 +157,16 @@ function isAuthenticated(req, res, next) {
 }
 
 // Profile APIs
-app.get('/api/profile', isAuthenticated, async (req, res) => {
+app.get("/api/profile", isAuthenticated, async (req, res) => {
   try {
     const user = await usersCollection.findOne({ email: req.session.user.email });
 
     if (user) {
       res.json({
-        username: user.name,
+        username: user.name, // Ensure this matches the key expected by the frontend
         email: user.email,
+        usn: user.usn || "N/A",
         phone: user.phone || "",
-        usn: user.usn || "",
         address: user.address || "",
         profilePic: user.profilePic || "",
       });
@@ -180,8 +179,10 @@ app.get('/api/profile', isAuthenticated, async (req, res) => {
   }
 });
 
-app.put('/api/profile', isAuthenticated, async (req, res) => {
-  const { phone, usn, address } = req.body;
+
+
+app.put("/api/profile", isAuthenticated, async (req, res) => {
+  const { username, phone, address } = req.body;
 
   if (!req.session.user || !req.session.user.email) {
     return res.status(400).json({ message: "User not authenticated" });
@@ -190,9 +191,14 @@ app.put('/api/profile', isAuthenticated, async (req, res) => {
   try {
     const userEmail = req.session.user.email;
 
+    const updateFields = {};
+    if (username) updateFields.name = username;
+    if (phone) updateFields.phone = phone;
+    if (address) updateFields.address = address;
+
     const result = await usersCollection.updateOne(
       { email: userEmail },
-      { $set: { phone, usn, address } }
+      { $set: updateFields }
     );
 
     if (result.modifiedCount > 0) {
@@ -207,13 +213,13 @@ app.put('/api/profile', isAuthenticated, async (req, res) => {
 });
 
 // Profile picture upload
-app.post('/api/uploadProfilePic', isAuthenticated, upload.single('profilePic'), async (req, res) => {
+app.post("/api/uploadProfilePic", isAuthenticated, upload.single("profilePic"), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "No file uploaded" });
   }
 
   try {
-    const base64Image = req.file.buffer.toString('base64');
+    const base64Image = req.file.buffer.toString("base64");
     const profilePicUrl = `data:${req.file.mimetype};base64,${base64Image}`;
 
     await usersCollection.updateOne(
@@ -229,13 +235,13 @@ app.post('/api/uploadProfilePic', isAuthenticated, upload.single('profilePic'), 
 });
 
 // Logout route
-app.get('/api/logout', (req, res) => {
+app.get("/api/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).json({ message: "Failed to log out" });
     }
-    res.clearCookie('connect.sid'); // Clear session cookie
-    res.redirect('/login.html');
+    res.clearCookie("connect.sid"); // Clear session cookie
+    res.redirect("/login.html");
   });
 });
 
@@ -243,12 +249,6 @@ app.get('/api/logout', (req, res) => {
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
-
-app.use((req, res, next) => {
-  console.log(`Incoming request: ${req.method} ${req.url}`);
-  next();
-});
-
 
 // Start server
 app.listen(PORT, () => {
