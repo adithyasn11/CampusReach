@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
 
 * {
     margin: 0;
@@ -7,7 +7,7 @@
 }
 
 body {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #3c8b7b, #114a65);
     color: #333;
     line-height: 1.6;
@@ -15,7 +15,7 @@ body {
 }
 
 h1, h2, h3 {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Playfair Display', serif;
 }
 
 .container {
@@ -59,6 +59,7 @@ h1, h2, h3 {
     letter-spacing: 2px;
     margin-left: 20px;
     transition: transform 0.3s ease-in-out;
+    font-family: 'Playfair Display', serif;
 }
 
 .logo:hover {
@@ -81,7 +82,7 @@ h1, h2, h3 {
     border: 2px solid #F39C12;
     transition: all 0.4s ease;
     position: relative;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Poppins', sans-serif;
 }
 
 .nav-links a:hover {
@@ -167,7 +168,7 @@ h1, h2, h3 {
     background-color: rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Poppins', sans-serif;
 }
 
 .side-menu a:hover {
@@ -209,7 +210,7 @@ h1, h2, h3 {
     font-family: 'Playfair Display', serif;
     font-size: 2em;
     margin-bottom: 25px;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Poppins', sans-serif;
 }
 
 .form-group {
@@ -251,7 +252,7 @@ h1, h2, h3 {
     width: 100%;
     font-size: 16px;
     padding: 12px 25px;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Poppins', sans-serif;
 }
 
 .signup-form button:hover {
