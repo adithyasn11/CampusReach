@@ -1,4 +1,4 @@
-// Toggle side menu
+// Toggle Side Menu
 document.getElementById("hamburger").addEventListener("click", function () {
     document.getElementById("side-menu").classList.add("show");
 });
@@ -7,12 +7,50 @@ document.getElementById("close-btn").addEventListener("click", function () {
     document.getElementById("side-menu").classList.remove("show");
 });
 
-// Ensure side menu closes if screen is resized above mobile size
+// Close Side Menu on Screen Resize
 window.addEventListener("resize", () => {
     if (window.innerWidth > 768) {
         document.getElementById("side-menu").classList.remove("show");
     }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById("searchInput");
+    const searchButton = document.getElementById("searchButton");
+    const facultyCards = document.querySelectorAll(".faculty-card");
+    const searchedFacultyContainer = document.getElementById("searchedFacultyContainer");
+    const noResults = document.querySelector(".no-results");
+
+    searchButton.addEventListener("click", () => {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        let found = false;
+
+        // Clear previous results
+        searchedFacultyContainer.innerHTML = "";
+        searchedFacultyContainer.style.display = "none";
+        noResults.style.display = "none";
+
+        facultyCards.forEach(card => {
+            const name = card.dataset.name.toLowerCase();
+            if (name.includes(searchTerm)) {
+                found = true;
+
+                // Clone and display the matched card
+                const clonedCard = card.cloneNode(true);
+                searchedFacultyContainer.appendChild(clonedCard);
+                searchedFacultyContainer.style.display = "block";
+            }
+        });
+
+        if (!found) {
+            noResults.style.display = "block"; // Show "No results" message
+        }
+    });
+});
+
+
+
+
 
 
 document.addEventListener("DOMContentLoaded", async function () {

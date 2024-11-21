@@ -391,11 +391,11 @@ footer .container {
 .feature-item h3 {
     margin: 10px 0;
     color: #333;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Playfair Display', serif;
 }
 
 .feature-item p {
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     color: #666;
     font-size: 0.9rem;
 }
