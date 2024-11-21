@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Directory</title>
+    <link rel="stylesheet" href="css/facultyDirectory.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="home.html" class="logo">CampusReach</a>
+            <ul class="nav-links">
+                <a href="home.html">Dashboard</a>
+                <a href="profile.html">Profile</a>
+                <a href="login.html" id="logout-button">Logout</a>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="side-menu" id="side-menu">
+        <span class="close-btn" id="close-btn">&times;</span>
+        <a href="home.html">Dashboard</a>
+        <a href="login.html">Login</a>
+        <a href="signup.html">Signup</a>
+        <a href="profile.html">Profile</a>
+    </div>
+
+    <section class="faculty-directory">
+        <div class="container">
+            <h1>Faculty Directory</h1>
+            <div class="faculty-grid">
+                <!-- Faculty Card Example -->
+                <div class="faculty-card">
+                    <img src="images/faculty1.jpg" alt="Faculty Photo" class="faculty-photo">
+                    <h3 class="faculty-name">Dr. Jane Smith</h3>
+                    <p class="faculty-post">Professor</p>
+                    <p class="faculty-designation">Head of Computer Science Department</p>
+                </div>
+                <div class="faculty-card">
+                    <img src="images/faculty2.jpg" alt="Faculty Photo" class="faculty-photo">
+                    <h3 class="faculty-name">Dr. John Doe</h3>
+                    <p class="faculty-post">Associate Professor</p>
+                    <p class="faculty-designation">Mathematics Department</p>
+                </div>
+                <div class="faculty-card">
+                    <img src="images/faculty3.jpg" alt="Faculty Photo" class="faculty-photo">
+                    <h3 class="faculty-name">Ms. Emily White</h3>
+                    <p class="faculty-post">Lecturer</p>
+                    <p class="faculty-designation">Physics Department</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CampusReach. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="js/facultyDirectory.js"></script>
+</body>
+</html>

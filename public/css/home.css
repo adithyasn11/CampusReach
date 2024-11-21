@@ -367,3 +367,36 @@ footer .container {
     animation: fadeIn 3s ease-in-out forwards;
 }
 
+.feature-item {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feature-item i {
+    font-size: 2rem;
+    color: #F39C12;
+    margin-bottom: 10px;
+}
+
+.feature-item h3 {
+    margin: 10px 0;
+    color: #333;
+    font-family: "Poppins", sans-serif;
+}
+
+.feature-item p {
+    font-family: "Poppins", sans-serif;
+    color: #666;
+    font-size: 0.9rem;
+}
+
