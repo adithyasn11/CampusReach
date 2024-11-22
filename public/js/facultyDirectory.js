@@ -14,105 +14,83 @@ window.addEventListener("resize", () => {
     }
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+    const facultyGrid = document.getElementById("facultyGrid");
     const searchInput = document.getElementById("searchInput");
-    const searchButton = document.getElementById("searchButton");
-    const facultyCards = document.querySelectorAll(".faculty-card");
-    const searchedFacultyContainer = document.getElementById("searchedFacultyContainer");
     const noResults = document.querySelector(".no-results");
+    let facultyData = []; // Store fetched faculty data for search
 
-    searchButton.addEventListener("click", () => {
-        const searchTerm = searchInput.value.trim().toLowerCase();
-        let found = false;
-
-        // Clear previous results
-        searchedFacultyContainer.innerHTML = "";
-        searchedFacultyContainer.style.display = "none";
-        noResults.style.display = "none";
-
-        facultyCards.forEach(card => {
-            const name = card.dataset.name.toLowerCase();
-            if (name.includes(searchTerm)) {
-                found = true;
-
-                // Clone and display the matched card
-                const clonedCard = card.cloneNode(true);
-                searchedFacultyContainer.appendChild(clonedCard);
-                searchedFacultyContainer.style.display = "block";
-            }
-        });
-
-        if (!found) {
-            noResults.style.display = "block"; // Show "No results" message
-        }
-    });
-});
-
-
-
-
-
-
-document.addEventListener("DOMContentLoaded", async function () {
-    const facultyList = document.querySelector(".faculty-list");
-  
-    // Fetch and display faculty data
+    // Fetch Faculty Data
     async function fetchFacultyData() {
-      try {
-        // Fetch faculty data from backend API
-        const response = await fetch("/api/faculty", {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-        });
-  
-        if (!response.ok) throw new Error("Failed to fetch faculty data");
-  
-        const facultyData = await response.json();
-  
-        // Populate faculty list
-        if (facultyData.length === 0) {
-          facultyList.innerHTML = `<p>No faculty members found.</p>`;
-        } else {
-          facultyList.innerHTML = ""; // Clear any existing content
-          facultyData.forEach((faculty) => {
+        try {
+            const response = await fetch("/api/faculty", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+            });
+
+            if (!response.ok) throw new Error("Failed to fetch faculty data");
+
+            facultyData = await response.json(); // Save data
+            displayFacultyData(facultyData); // Display all faculty initially
+        } catch (error) {
+            console.error("Error fetching faculty data:", error);
+            facultyGrid.innerHTML = `<p>Unable to load faculty directory. Please try again later.</p>`;
+        }
+    }
+
+    // Display Faculty Data
+    function displayFacultyData(data) {
+        facultyGrid.innerHTML = ""; // Clear the grid
+
+        if (data.length === 0) {
+            noResults.style.display = "block"; // Show "No results" message
+            return;
+        }
+
+        noResults.style.display = "none"; // Hide "No results" message
+        data.forEach((faculty) => {
             const facultyCard = document.createElement("div");
             facultyCard.classList.add("faculty-card");
-  
+
             facultyCard.innerHTML = `
-              <img src="${faculty.photo || 'default-profile.png'}" alt="${faculty.name}">
-              <h3>${faculty.name}</h3>
-              <p>${faculty.department}</p>
-              <p>Contact: <a href="mailto:${faculty.email}">${faculty.email}</a></p>
+                <img src="${faculty.profilePic || 'images/default-profile.png'}" alt="Faculty Photo" class="faculty-photo">
+                <h3 class="faculty-name">${faculty.name}</h3>
+                <p class="faculty-post">${faculty.designation || "Faculty Member"}</p>
+                <p class="faculty-designation">${faculty.department || "Unknown Department"}</p>
+                <p class="faculty-designation">${faculty.cabin || "Unknown cabin"}</p>
             `;
-  
-            facultyList.appendChild(facultyCard);
-          });
-        }
-      } catch (error) {
-        console.error("Error fetching faculty data:", error);
-        facultyList.innerHTML = `<p>Unable to load faculty directory. Please try again later.</p>`;
-      }
+
+            facultyGrid.appendChild(facultyCard);
+        });
     }
-  
-    fetchFacultyData();
-  
-    // Add search functionality for faculty
-    const searchInput = document.getElementById("faculty-search");
-    searchInput.addEventListener("input", function () {
-      const query = searchInput.value.toLowerCase();
-      const facultyCards = document.querySelectorAll(".faculty-card");
-  
-      facultyCards.forEach((card) => {
-        const name = card.querySelector("h3").textContent.toLowerCase();
-        const department = card.querySelector("p").textContent.toLowerCase();
-  
-        if (name.includes(query) || department.includes(query)) {
-          card.style.display = "block";
-        } else {
-          card.style.display = "none";
-        }
-      });
-    });
+
+    // Perform Search
+    function searchFaculty(searchTerm) {
+      const filteredFaculty = facultyData.filter((faculty) =>
+          faculty.name.toLowerCase().includes(searchTerm)
+      );
+      displayFacultyData(filteredFaculty); // Display filtered results
+  }
+
+  // Initialize Faculty Data Fetching
+  await fetchFacultyData();
+
+  // Add Real-Time Search Listener
+  searchInput.addEventListener("input", () => {
+      const searchTerm = searchInput.value.trim().toLowerCase();
+      searchFaculty(searchTerm);
   });
-  
+});
+
+searchButton.addEventListener("click", () => {
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  searchFaculty(searchTerm);
+});
+
+searchInput.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+      const searchTerm = searchInput.value.trim().toLowerCase();
+      searchFaculty(searchTerm);
+  }
+});

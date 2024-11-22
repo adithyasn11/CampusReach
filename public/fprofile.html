@@ -3,20 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CampusReach - Dashboard</title>
-    <link rel="stylesheet" href="css/home.css">
+    <title>CampusReach - Profile</title>
+    <link rel="stylesheet" href="css/profile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-
 </head>
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="home.html" class="logo">CampusReach</a>
+            <a href="fhome.html" class="logo">CampusReach</a>
             <ul class="nav-links">
-                <a href="home.html">Dashboard</a>
-                <a href="profile.html">Profile</a>
-                
+                <a href="fhome.html">Dashboard</a>
+                <a href="fprofile.html">Profile</a>
                 <a href="login.html" id="logout-button">Logout</a>
             </ul>
             <div class="hamburger" id="hamburger">
@@ -29,52 +26,55 @@
 
     <div class="side-menu" id="side-menu">
         <span class="close-btn" id="close-btn">&times;</span>
-        <a href="home.html">Dashboard</a>
-        <a href="profile.html">Profile</a>
+        <a href="fhome.html">Dashboard</a>
+        <a href="fprofile.html">Profile</a>
         <a href="login.html" id="logout-button">Logout</a>
     </div>
 
-    <!-- Greeting Section with Typing Effect -->
-    <section class="greeting" id="greeting">
-        <h1 id="greetingText"></h1>
-    </section>
-
-    <section id="features" class="features-section">
-        <div class="container">
-            <h2>Explore Features</h2>
-            <div class="feature-grid">
-                <div class="feature-item" id="faculty-directory-feature">
-                    <i class="fa-solid fa-chalkboard-user"></i>
-                    <h3>Faculty Directory</h3>
-                    <p>Search and connect with faculty members easily with our comprehensive directory.</p>
-
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="profile-image">
+                <img id="profile-pic" src="img/dummy.jpg" alt="Profile Picture">
+                <input type="file" id="file-input" accept="image/*" style="display: none;">
+                <button class="update-pic-btn" onclick="document.getElementById('file-input').click();">
+                    <i class="fa-solid fa-camera"></i>
+                </button>
+            </div>
+            <div class="profile-info">
+                <h2 id="username">Username</h2> 
+                <p id="email">Email</p>
+            </div>
+            <div class="profile-details">
+                <div class="field">
+                    <label>Username:</label>
+                    <input type="text" id="username-input" placeholder="Enter new username">
                 </div>
-                <div class="feature-item">
-                    <i class="fa-solid fa-calendar-check"></i>
-                    <h3>Real-Time Availability</h3>
-                    <p>View faculty availability in real-time and schedule appointments with ease.</p>
+                <div class="field">
+                    <label>Phone Number:</label>
+                    <input type="text" id="phone" placeholder="Add phone number">
                 </div>
-                <div class="feature-item">
-                    <i class="fa-solid fa-location-arrow"></i>
-                    <h3>Campus Navigation</h3>
-                    <p>Find your way around campus effortlessly with our built-in map and navigation tools.</p>
+                <div class="field">
+                    <label>Cabin:</label>
+                    <input type="text" id="cabin" placeholder="Add new cabin">
                 </div>
+                <button id="save-button">Save Changes</button>
             </div>
         </div>
-    </section>
+    </div>
 
     <footer>
         <div class="container">
             <div class="footer-columns">
                 <div class="col-about">
                     <h3>About CampusReach</h3>
-                    <p>CampusReach provides students with a reliable and efficient way to navigate campus life and connect with faculty.</p>
+                    <p>Your guide to faculty availability and navigation, streamlining campus communication.</p>
                 </div>
                 <div class="col-links">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="contact.html">Support</a></li>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Faculty Directory</a></li>
+                        <li><a href="#">Support</a></li>
                     </ul>
                 </div>
                 <div class="col-contact">
@@ -93,6 +93,6 @@
         </div>
     </footer>
 
-    <script src="js/home.js"></script>
+    <script src="js/fprofile.js"></script>
 </body>
 </html>

@@ -11,9 +11,9 @@
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="home.html" class="logo">CampusReach</a>
+            <a href="shome.html" class="logo">CampusReach</a>
             <ul class="nav-links">
-                <a href="home.html">Dashboard</a>
+                <a href="shome.html">Dashboard</a>
                 <a href="profile.html">Profile</a>
                 <a href="login.html" id="logout-button">Logout</a>
             </ul>
@@ -27,8 +27,7 @@
 
     <div class="side-menu" id="side-menu">
         <span class="close-btn" id="close-btn">&times;</span>
-        <a href="home.html">Dashboard</a>
-        
+        <a href="shome.html">Dashboard</a>
         <a href="profile.html">Profile</a>
         <a href="login.html" id="logout-button">Logout</a>
     </div>
@@ -42,39 +41,46 @@
                 <button id="searchButton">Search</button>
             </div>
 
-            <div class="searched-faculty-container" id="searchedFacultyContainer"></div>
-
+            <div class="searched-faculty-container" id="searchedFacultyContainer" style="display: none;"></div>
 
             <div class="faculty-grid" id="facultyGrid">
-                <!-- Faculty Card Example -->
-                <div class="faculty-card" data-name="Dr. Venugopala P S">
-                    <img src="img/HOD.jpg" alt="Faculty Photo" class="faculty-photo">
-                    <h3 class="faculty-name">Dr. Venugopala P S</h3>
-                    <p class="faculty-post">Professor and Head</Head></p>
-                    <p class="faculty-designation">Head of Artificial Inteligence and Data Science</p>
-                </div>
-                <div class="faculty-card" data-name="Dr. John Doe">
-                    <img src="images/faculty2.jpg" alt="Faculty Photo" class="faculty-photo">
-                    <h3 class="faculty-name">Dr. John Doe</h3>
-                    <p class="faculty-post">Associate Professor</p>
-                    <p class="faculty-designation">Mathematics Department</p>
-                </div>
-                <div class="faculty-card" data-name="Ms. Emily White">
-                    <img src="images/faculty3.jpg" alt="Faculty Photo" class="faculty-photo">
-                    <h3 class="faculty-name">Ms. Emily White</h3>
-                    <p class="faculty-post">Lecturer</p>
-                    <p class="faculty-designation">Physics Department</p>
-                </div>
+                <!-- Faculty cards will be dynamically generated here -->
             </div>
-        <div class="no-results">No results found.</div>
+
+            <div class="no-results" style="display: none;">No results found.</div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 CampusReach. All rights reserved.</p>
+            <div class="footer-columns">
+                <div class="col-about">
+                    <h3>About CampusReach</h3>
+                    <p>CampusReach provides students with a reliable and efficient way to navigate campus life and connect with faculty.</p>
+                </div>
+                <div class="col-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="contact.html">Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-contact">
+                    <h3>Contact Us</h3>
+                    <p>Email: info@campusreach.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/your_instagram_profile"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.twitter.com/your_twitter_profile"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="https://www.telegram.com/your_telegram_profile"><i class="fa-brands fa-telegram"></i></a>
+                </div>
+                <p>&copy; 2024 CampusReach. All rights reserved.</p>
+            </div>
         </div>
     </footer>
+
     <script src="js/facultyDirectory.js"></script>
 </body>
 </html>

@@ -103,6 +103,10 @@ app.get("/profile.html", isAuthenticated, noCache, (req, res) => {
   res.sendFile(path.join(__dirname, "public", "profile.html"));
 });
 
+app.get("/fprofile.html", isAuthenticated, noCache, (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "fprofile.html"));
+});
+
 // Signup route
 app.post("/api/signup", async (req, res) => {
   const { name, usn, email, password } = req.body;
@@ -177,6 +181,7 @@ app.get("/api/profile", isAuthenticated, async (req, res) => {
         phone: user.phone || "",
         address: user.address || "",
         profilePic: user.profilePic || "",
+        cabin: user.cabin || "",
       });
     } else {
       res.status(404).json({ message: "User not found" });
@@ -190,7 +195,7 @@ app.get("/api/profile", isAuthenticated, async (req, res) => {
 
 
 app.put("/api/profile", isAuthenticated, async (req, res) => {
-  const { username, phone, address } = req.body;
+  const { username, phone, address,cabin } = req.body;
 
   if (!req.session.user || !req.session.user.email) {
     return res.status(400).json({ message: "User not authenticated" });
@@ -203,6 +208,7 @@ app.put("/api/profile", isAuthenticated, async (req, res) => {
     if (username) updateFields.name = username;
     if (phone) updateFields.phone = phone;
     if (address) updateFields.address = address;
+    if (cabin) updateFields.cabin = cabin;
 
     const result = await usersCollection.updateOne(
       { email: userEmail },
@@ -252,6 +258,26 @@ app.get("/api/logout", (req, res) => {
     res.redirect("/login.html");
   });
 });
+
+// Faculty Directory API
+app.get("/api/faculty", isAuthenticated, async (req, res) => {
+  try {
+    // Fetch faculty members where isFaculty is true
+    const facultyMembers = await usersCollection.find({ isFaculty: true }).toArray();
+
+    if (!facultyMembers || facultyMembers.length === 0) {
+      return res.status(404).json({ message: "No faculty members found." });
+    }
+
+    // Return faculty data
+    res.json(facultyMembers);
+  } catch (error) {
+    console.error("Error fetching faculty data:", error);
+    res.status(500).json({ message: "Server error. Please try again later." });
+  }
+});
+
+
 
 // Fallback for unmatched routes
 app.get("*", (req, res) => {
