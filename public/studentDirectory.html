@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CampusReach - Dashboard</title>
-    <link rel="stylesheet" href="css/fhome.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Faculty Directory</title>
+    <link rel="stylesheet" href="css/studentDirectory.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
     <nav class="navbar">
@@ -33,24 +32,22 @@
         <a href="login.html" id="logout-button">Logout</a>
     </div>
 
-    <!-- Greeting Section with Typing Effect -->
-    <section class="greeting" id="greeting">
-        <h1 id="greetingText"></h1>
-    </section>
-
-    <section id="features" class="features-section">
+    <section class="student-directory">
         <div class="container">
-            <h2>Explore Features</h2>
-            <div class="feature-grid">
-                <a href="studentDirectory.html">
-                    <div class="feature-item">
-                        <i class="fa-solid fa-chalkboard-user"></i>
-                        <h3>Student Directory</h3>
-                        <p>Search and connect with Students.</p>
-                    </div>
-                </a>
-               
+            <h1>Students Directory</h1>
+
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search for a student name..." />
+                <button id="searchButton">Search</button>
             </div>
+
+            <div class="searched-student-container" id="searchedstudentContainer" style="display: none;"></div>
+
+            <div class="student-grid" id="StudentGrid">
+                <!-- Faculty cards will be dynamically generated here -->
+            </div>
+
+            <div class="no-results" style="display: none;">No results found.</div>
         </div>
     </section>
 
@@ -84,6 +81,6 @@
         </div>
     </footer>
 
-    <script src="js/fhome.js"></script>
+    <script src="js/studentDirectory.js"></script>
 </body>
 </html>

@@ -117,7 +117,14 @@ app.post("/api/signup", async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-    const newUser = { name, usn, email, password: hashedPassword };
+    const newUser = {
+      name,
+      usn,
+      email,
+      password: hashedPassword,
+      isFaculty: false,
+      department: "AI & DS",
+    };
     await usersCollection.insertOne(newUser);
 
     res.json({ success: true, message: "Signup successful", redirectUrl: "/login.html" });
@@ -126,6 +133,7 @@ app.post("/api/signup", async (req, res) => {
     res.status(500).json({ success: false, message: "Server error, please try again" });
   }
 });
+
 
 // Login route
 app.post("/api/login", async (req, res) => {
@@ -276,6 +284,27 @@ app.get("/api/faculty", isAuthenticated, async (req, res) => {
     res.status(500).json({ message: "Server error. Please try again later." });
   }
 });
+
+app.get("/api/students", isAuthenticated, async (req, res) => {
+  try {
+    // Fetch students where isFaculty is false
+    const students = await usersCollection
+      .find({ isFaculty: false })
+      .project({ name: 1, usn: 1, profilePic: 1, department: 1 }) // Select only the required fields
+      .toArray();
+
+    if (!students || students.length === 0) {
+      return res.status(404).json({ message: "No students found." });
+    }
+
+    // Return student data
+    res.json(students);
+  } catch (error) {
+    console.error("Error fetching students data:", error);
+    res.status(500).json({ message: "Server error. Please try again later." });
+  }
+});
+
 
 
 
