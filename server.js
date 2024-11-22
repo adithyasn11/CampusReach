@@ -52,7 +52,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, "public")));
 
-// CORS Configuration
 const allowedOrigins = [
   "https://campus-reach.vercel.app",
   "http://localhost:3000",
@@ -97,7 +96,7 @@ const upload = multer({ storage });
 
 // Protected Routes
 app.get("/home.html", isAuthenticated, noCache, (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "home.html"));
+  res.sendFile(path.join(__dirname, "public", "shome.html"));
 });
 
 app.get("/profile.html", isAuthenticated, noCache, (req, res) => {
@@ -133,8 +132,16 @@ app.post("/api/login", async (req, res) => {
     if (user) {
       const isMatch = await bcrypt.compare(password, user.password);
       if (isMatch) {
-        req.session.user = { username: user.name, email: user.email };
-        res.json({ success: true, redirectUrl: "/home.html", username: user.name, userEmail: user.email });
+        req.session.user = { username: user.name, email: user.email, isFaculty: user.isFaculty };
+
+        // Redirect based on isFaculty value
+        const redirectUrl = user.isFaculty ? "/fhome.html" : "/shome.html";
+        res.json({ 
+          success: true, 
+          redirectUrl, 
+          username: user.name, 
+          userEmail: user.email 
+        });
       } else {
         res.json({ success: false, message: "Invalid email or password" });
       }
@@ -146,6 +153,7 @@ app.post("/api/login", async (req, res) => {
     res.status(500).json({ success: false, message: "Server error, please try again" });
   }
 });
+
 
 // Middleware to check if user is authenticated
 function isAuthenticated(req, res, next) {

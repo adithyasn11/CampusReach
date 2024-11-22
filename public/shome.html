@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusReach - Dashboard</title>
+    <link rel="stylesheet" href="css/shome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="home.html" class="logo">CampusReach</a>
+            <ul class="nav-links">
+                <a href="shome.html">Dashboard</a>
+                <a href="profile.html">Profile</a>
+                <a href="login.html" id="logout-button">Logout</a>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="side-menu" id="side-menu">
+        <span class="close-btn" id="close-btn">&times;</span>
+        <a href="shome.html">Dashboard</a>
+        <a href="profile.html">Profile</a>
+        <a href="login.html" id="logout-button">Logout</a>
+    </div>
+
+    <!-- Greeting Section with Typing Effect -->
+    <section class="greeting" id="greeting">
+        <h1 id="greetingText"></h1>
+    </section>
+
+    <section id="features" class="features-section">
+        <div class="container">
+            <h2>Explore Features</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                    <h3>Faculty Directory</h3>
+                    <p>Search and connect with faculty members easily with our comprehensive directory.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <h3>Real-Time Availability</h3>
+                    <p>View faculty availability in real-time and schedule appointments with ease.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fa-solid fa-location-arrow"></i>
+                    <h3>Campus Navigation</h3>
+                    <p>Find your way around campus effortlessly with our built-in map and navigation tools.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-columns">
+                <div class="col-about">
+                    <h3>About CampusReach</h3>
+                    <p>CampusReach provides students with a reliable and efficient way to navigate campus life and connect with faculty.</p>
+                </div>
+                <div class="col-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="contact.html">Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-contact">
+                    <h3>Contact Us</h3>
+                    <p>Email: info@campusreach.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/your_instagram_profile"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.twitter.com/your_twitter_profile"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="https://www.telegram.com/your_telegram_profile"><i class="fa-brands fa-telegram"></i></a>
+                </div>
+                <p>&copy; 2024 CampusReach. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/shome.js"></script>
+</body>
+</html>
