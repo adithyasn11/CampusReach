@@ -37,7 +37,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       const data = await response.json();
 
       if (data.usn) {
-        usn = data.usn; // Store the USN in the variable
+        usn = data.usn; 
+        username=data.name;
         console.log("USN fetched:", usn); // Log the USN to the console
       } else {
         console.error("USN not found in response.");
@@ -137,7 +138,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ message, msgusn: usn }),
+        body: JSON.stringify({ message, msgusn: usn ,msgname:username}),
       });
 
       if (response.ok) {

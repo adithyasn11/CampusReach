@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CampusReach - Dashboard</title>
-    <link rel="stylesheet" href="css/shome.css">
+    <link rel="stylesheet" href="css/notification.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
@@ -12,11 +12,11 @@
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="shome.html" class="logo">CampusReach</a>
+            <a href="fhome.html" class="logo">CampusReach</a>
             <ul class="nav-links">
-                <a href="shome.html">Dashboard</a>
-                <a href="snotification.html">Notificatons</a>
-                <a href="profile.html">Profile</a>
+                <a href="fhome.html">Dashboard</a>
+                <a href="notification.html">Notificatons</a>
+                <a href="fprofile.html">Profile</a>
                 <a href="login.html" id="logout-button">Logout</a>
             </ul>
             <div class="hamburger" id="hamburger">
@@ -29,47 +29,19 @@
 
     <div class="side-menu" id="side-menu">
         <span class="close-btn" id="close-btn">&times;</span>
-        <a href="shome.html">Dashboard</a>
-        <a href="snotification.html">Notificatons</a>
-        <a href="profile.html">Profile</a>
+        <a href="fhome.html">Dashboard</a>
+        <a href="notification.html">Notificatons</a>
+        <a href="fprofile.html">Profile</a>
         <a href="login.html" id="logout-button">Logout</a>
     </div>
 
-    <!-- Greeting Section with Typing Effect -->
-    <section class="greeting" id="greeting">
-        <h1 id="greetingText"></h1>
-    </section>
+    <div id="notifications" class="notifications">
+        <!-- Messages will appear here -->
+    </div>
+    
 
-    <section id="features" class="features-section">
-        <div class="container">
-            <h2>Explore Features</h2>
-            <div class="feature-grid">
-                <a href="facultyDirectory.html">
-                    <div class="feature-item">
-                        <i class="fa-solid fa-chalkboard-user"></i>
-                        <h3>Faculty Directory</h3>
-                        <p>Search and connect with faculty members easily with our comprehensive directory.</p>
-                    </div>
-                </a>
-                <a href="view.html">
-                    <div class="feature-item">
-                        <i class="fa-solid fa-calendar-check"></i>
-                        <h3>Real-Time Availability</h3>
-                        <p>View faculty availability in real-time and schedule appointments with ease.</p>
-                    </div>
-                </a>
-                <a href="campus-navigation.html">
-                    <div class="feature-item">
-                        <i class="fa-solid fa-location-arrow"></i>
-                        <h3>Campus Navigation</h3>
-                        <p>Find your way around campus effortlessly with our built-in map and navigation tools.</p>
-                    </div>
-                </a>
-            </div>
-            
-            
-        </div>
-    </section>
+
+   
 
     <footer>
         <div class="container">
@@ -101,6 +73,6 @@
         </div>
     </footer>
 
-    <script src="js/shome.js"></script>
+    <script src="js/notification.js"></script>
 </body>
 </html>

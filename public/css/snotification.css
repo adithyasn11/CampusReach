@@ -1,0 +1,385 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #3c8b7b, #114a65);
+    color: #333;
+    line-height: 1.6;
+    transition: background 1s ease;
+    display: flex; /* Flex layout to manage body children */
+    flex-direction: column; /* Stack children vertically */
+    min-height: 100vh; /* Ensure full height of the viewport */
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navbar */
+.navbar {
+    background: linear-gradient(13deg, #4d5b61, #092c34);
+    height: 55px;
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0px 4px 20px rgba(245, 240, 240, 0.2);    
+    transition: box-shadow 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+}
+
+.navbar:hover {
+    background: linear-gradient(13deg, #092c34, #4d5b61);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.logo {
+    font-size: 24px;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-left: 20px;
+    transition: transform 0.3s ease-in-out;
+    font-family: 'Playfair Display', serif;
+}
+
+.logo:hover {
+    transform: scale(1.1);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin-right: 20px;
+}
+
+.nav-links a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 30px;
+    border: 2px solid #F39C12;
+    transition: all 0.4s ease;
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+}
+
+.nav-links a:hover {
+    background-color: #F39C12;
+    color: #2C3E50;
+    transform: translateY(-2px);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 8px; 
+    border: 2px solid #F39C12;
+    border-radius: 20%;
+    transition: all 0.3s ease;
+}
+
+.hamburger:hover {
+    background-color: rgba(243, 156, 18, 0.2);
+    box-shadow: 0 0 10px rgba(243, 156, 18, 0.6);
+    transform: scale(1.1);
+}
+
+.hamburger .bar {
+    width: 25px;
+    height: 2px;
+    background-color: #fff;
+    margin: 4px 0;
+    transition: all 0.3s ease;
+}
+
+.side-menu {
+    position: fixed;
+    top: 10%;
+    right: 10px;
+    height: 60%;
+    width: 250px; 
+    background-color: #2C3E50; 
+    padding-top: 30px;
+    z-index: 1000;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+    transform: translateX(110%);
+    transition: transform 0.4s ease, box-shadow 0.3s ease;
+    overflow-y: auto; 
+    border-radius: 10px;
+    overflow-y: auto; 
+}
+
+.side-menu.show {
+    transform: translateX(0);
+    animation: slideIn 0.5s ease-in-out;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    animation: none;
+}
+
+.close-btn {
+    position: absolute;
+    top: 1px;
+    right: 15px;
+    font-size: 30px;
+    color: #FFF;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+    z-index: 1001;
+    overflow: hidden;
+}
+
+.close-btn:hover {
+    transform: rotate(90deg);
+    color: #F39C12;
+}
+
+.side-menu a {
+    display: block;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: large;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 8px; 
+    margin: 10px 0;
+    transition: all 0.9s ease; 
+    background-color: rgba(255, 255, 255, 0.1); 
+    position: relative;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+.side-menu a:hover {
+    color: #2C3E50; 
+    transform: translateX(-5px); 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+}
+
+.side-menu a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: #F39C12;
+    z-index: -1;
+    transition: left 0.3s ease;
+}
+
+.side-menu a:hover::before {
+    left: 0;
+}
+
+.notification-container {
+    max-width: 900px;
+    margin: 100px auto; /* Increased top margin to push below navbar */
+    padding: 30px; /* Increased padding for a more spacious look */
+    background: linear-gradient(135deg, #ffffff, #ffffff);
+    border-radius: 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    font-family: 'Poppins', sans-serif;
+    border: 1px solid #ddd;
+    transition: box-shadow 0.3s ease;
+}
+
+/* Notification Container Hover Effect */
+.notification-container:hover {
+    transform: translateY(-2px); /* Slight movement on hover for a dynamic feel */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Header for Notifications */
+.notification-header {
+    font-size: 36px;
+    color: #0f4a6b; /* Slightly darker blue for emphasis */
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 50px; /* Larger bottom margin for better spacing */
+    font-family: 'Playfair Display', serif;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    border-bottom: 2px solid #ddd; /* Separator below the header */
+    padding-bottom: 10px;
+}
+
+/* Individual Notification Card */
+.notification-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items to the top */
+    padding: 25px;
+    margin-bottom: 30px; /* Larger gap between notifications */
+    border: 1px solid #e6e6e6;
+    background:  #d0d0d0; /* Light gray background */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+/* Notification Card Hover Effect */
+.notification-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background: #f5faff; /* Soft light-blue highlight on hover */
+    border-color: #d0e6f7; /* Soft blue border on hover */
+}
+
+/* Message Content Styling */
+.notification-content {
+    flex: 1;
+    margin-right: 20px; /* Added more spacing between message and timestamp */
+}
+
+.notification-message {
+    font-size: 18px;
+    color: #333;
+    font-weight: 600; /* Bold font for message */
+    margin-bottom: 8px;
+}
+
+.notification-usn {
+    font-size: 15px;
+    color: #555;
+    font-style: italic;
+    margin-top: 5px;
+    line-height: 1.5; /* Improved line spacing */
+}
+
+/* Timestamp Styling */
+.notification-timestamp {
+    font-size: 14px;
+    color: #5b5959;
+    text-align: right;
+    white-space: nowrap;
+    margin-left: 15px; /* Add spacing between timestamp and message */
+}
+
+/* Divider for Notifications */
+.notification-card:not(:last-child) {
+    border-bottom: 2px solid #f1f1f1; /* Subtle divider for better distinction */
+}
+
+
+footer {
+    background-color: #2C3E50;
+    color: #ECF0F1;
+    padding: 40px 0;
+    margin-top: auto; /* Push footer to bottom */
+    width: 100%;
+}
+
+footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-columns {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 900px; 
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.col-about, .col-links, .col-contact {
+    width: calc(33.33% - 20px);
+    text-align: left;
+}
+
+.col-links ul {
+    list-style: none;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.col-links a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.col-links a:hover {
+    color: #F39C12;
+}
+
+.footer-bottom {
+    text-align: center;
+    width: 100%;
+}
+
+.footer-bottom p {
+    font-size: 14px;
+    color: #bdc3c7;
+    font-family: 'Poppins', sans-serif;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 10px; 
+}
+
+.social-icons a i {
+    color: white; 
+    font-size: 24px;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+        padding: 6px;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-columns {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .col-about, .col-links, .col-contact {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}

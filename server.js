@@ -210,6 +210,7 @@ app.get("/api/profile1", isAuthenticated, async (req, res) => {
 
     if (user) {
       res.json({
+        name: user.name || "N/A",
 
         usn: user.usn || "N/A",
       });
@@ -221,6 +222,24 @@ app.get("/api/profile1", isAuthenticated, async (req, res) => {
     res.status(500).json({ message: "Server error, please try again" });
   }
 });
+
+app.get("/api/profile2", isAuthenticated, async (req, res) => {
+  try {
+    const user = await usersCollection.findOne({ email: req.session.user.email });
+
+    if (user) {
+      res.json({
+        name: user.name || "N/A",
+      });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    res.status(500).json({ message: "Server error, please try again" });
+  }
+});
+
 
 // Update profile with availability
 app.put("/api/profile", isAuthenticated, async (req, res) => {
@@ -300,7 +319,7 @@ app.get("/api/faculty", isAuthenticated, async (req, res) => {
 // Faculty Message API
 app.put("/api/faculty/message/:facultyId", isAuthenticated, async (req, res) => {
   const { facultyId } = req.params;
-  const { message, msgusn } = req.body;
+  const { message, msgusn,msgname } = req.body;
 
   if (!message || !msgusn) {
     return res.status(400).json({ error: "Message and sender's USN are required" });
@@ -309,7 +328,7 @@ app.put("/api/faculty/message/:facultyId", isAuthenticated, async (req, res) => 
   try {
     const result = await usersCollection.updateOne(
       { _id: new ObjectId(facultyId) },
-      { $push: {messages:{ msgusn, message, timestamp: new Date() } } }
+      { $push: {messages:{ msgusn, message,msgname, timestamp: new Date() } } }
     );
 
     if (result.modifiedCount === 0) {
@@ -322,6 +341,49 @@ app.put("/api/faculty/message/:facultyId", isAuthenticated, async (req, res) => 
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+app.put("/api/students/message/:studentId", isAuthenticated, async (req, res) => {
+  const { studentId } = req.params;
+  const { message,msgname } = req.body;
+
+  if (!message || !msgname) {
+    return res.status(400).json({ error: "Message and sender's name are required" });
+  }
+
+  try {
+    const result = await usersCollection.updateOne(
+      { _id: new ObjectId(studentId) },
+      { $push: {messages:{ message,msgname, timestamp: new Date() } } }
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ error: "Faculty not found" });
+    }
+
+    res.json({ message: "Message sent successfully" });
+  } catch (error) {
+    console.error("Error saving message:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.get("/api/notifications", isAuthenticated, async (req, res) => {
+  try {
+      // Fetch all messages sent to the logged-in faculty member
+      const faculty = await usersCollection.findOne({ email: req.session.user.email });
+
+      if (!faculty || !faculty.messages || faculty.messages.length === 0) {
+          return res.status(404).json([]);
+      }
+
+      // Return the messages array
+      res.json(faculty.messages);
+  } catch (error) {
+      console.error("Error fetching notifications:", error);
+      res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 
 // Fallback for unmatched routes
 app.get("*", (req, res) => {
