@@ -39,7 +39,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (data.usn) {
         usn = data.usn; 
         username=data.name;
-        console.log("USN fetched:", usn); // Log the USN to the console
+        console.log("USN fetched:", usn); 
+        console.log("USN fetched:", username);// Log the USN to the console
       } else {
         console.error("USN not found in response.");
       }
