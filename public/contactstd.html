@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CampusReach - Student Directory</title>
-  <link rel="stylesheet" href="css/studentDirectory.css">
+  <title>CampusReach - Contact Students</title>
+  <link rel="stylesheet" href="css/contactstd.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
@@ -35,15 +35,17 @@
 
 <section class="student-directory">
   <div class="container">
-      <h1>Student Directory</h1>
+      <h1>Students Directory</h1>
 
       <div class="search-bar">
           <input type="text" id="searchInput" placeholder="Search for a student name..." />
           <button id="searchButton">Search</button>
       </div>
 
+      <div class="searched-student-container" id="searchedstudentContainer" style="display: none;"></div>
+
       <div id="student-cards-container" class="student-cards-container">
-        <!-- Student cards will be dynamically generated here -->
+        <!-- Faculty cards will be dynamically generated here -->
       </div>
 
       <div class="no-results" id="no-results-message" style="display: none;">No results found.</div>
@@ -78,6 +80,6 @@
         </div>
     </div>
 </footer>
-  <script src="js/studentDirectory.js"></script>
+  <script src="js/contactstd.js"></script>
 </body>
 </html>

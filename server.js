@@ -5,7 +5,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import session from "express-session";
 import multer from "multer";
-import { MongoClient, ServerApiVersion } from "mongodb";
+import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
 import dotenv from "dotenv";
 import MongoStore from "connect-mongo";
 import cors from "cors";
@@ -76,7 +76,7 @@ app.use(
     }),
     cookie: {
       secure: process.env.NODE_ENV === "production", // Set to true in production
-      maxAge: 600000, // 10 minutes
+      maxAge: 3600000, // 10 minutes
     },
   })
 );
@@ -134,7 +134,6 @@ app.post("/api/signup", async (req, res) => {
   }
 });
 
-
 // Login route
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
@@ -144,15 +143,20 @@ app.post("/api/login", async (req, res) => {
     if (user) {
       const isMatch = await bcrypt.compare(password, user.password);
       if (isMatch) {
-        req.session.user = { username: user.name, email: user.email, isFaculty: user.isFaculty };
+        req.session.user = {
+          username: user.name,
+          email: user.email,
+          isFaculty: user.isFaculty,
+          usn: user.usn, // Include USN in the session
+        };
 
         // Redirect based on isFaculty value
         const redirectUrl = user.isFaculty ? "/fhome.html" : "/shome.html";
-        res.json({ 
-          success: true, 
-          redirectUrl, 
-          username: user.name, 
-          userEmail: user.email 
+        res.json({
+          success: true,
+          redirectUrl,
+          username: user.name,
+          userEmail: user.email,
         });
       } else {
         res.json({ success: false, message: "Invalid email or password" });
@@ -165,7 +169,6 @@ app.post("/api/login", async (req, res) => {
     res.status(500).json({ success: false, message: "Server error, please try again" });
   }
 });
-
 
 // Middleware to check if user is authenticated
 function isAuthenticated(req, res, next) {
@@ -183,13 +186,50 @@ app.get("/api/profile", isAuthenticated, async (req, res) => {
 
     if (user) {
       res.json({
-        username: user.name, // Ensure this matches the key expected by the frontend
+        username: user.name,
         email: user.email,
         usn: user.usn || "N/A",
         phone: user.phone || "",
         address: user.address || "",
         profilePic: user.profilePic || "",
         cabin: user.cabin || "",
+        availability: user.availability || false, // Default to false if not set
+      });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    res.status(500).json({ message: "Server error, please try again" });
+  }
+});
+
+app.get("/api/profile1", isAuthenticated, async (req, res) => {
+  try {
+    const user = await usersCollection.findOne({ email: req.session.user.email });
+
+    if (user) {
+      res.json({
+        name: user.name || "N/A",
+
+        usn: user.usn || "N/A",
+      });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    res.status(500).json({ message: "Server error, please try again" });
+  }
+});
+
+app.get("/api/profile2", isAuthenticated, async (req, res) => {
+  try {
+    const user = await usersCollection.findOne({ email: req.session.user.email });
+
+    if (user) {
+      res.json({
+        name: user.name || "N/A",
       });
     } else {
       res.status(404).json({ message: "User not found" });
@@ -201,9 +241,9 @@ app.get("/api/profile", isAuthenticated, async (req, res) => {
 });
 
 
-
+// Update profile with availability
 app.put("/api/profile", isAuthenticated, async (req, res) => {
-  const { username, phone, address,cabin } = req.body;
+  const { username, phone, address, cabin, availability } = req.body;
 
   if (!req.session.user || !req.session.user.email) {
     return res.status(400).json({ message: "User not authenticated" });
@@ -218,6 +258,10 @@ app.put("/api/profile", isAuthenticated, async (req, res) => {
     if (address) updateFields.address = address;
     if (cabin) updateFields.cabin = cabin;
 
+    if (typeof availability === "boolean") {
+      updateFields.availability = availability;
+    }
+
     const result = await usersCollection.updateOne(
       { email: userEmail },
       { $set: updateFields }
@@ -231,57 +275,6 @@ app.put("/api/profile", isAuthenticated, async (req, res) => {
   } catch (error) {
     console.error("Error updating profile:", error);
     res.status(500).json({ message: "Server error, please try again" });
-  }
-});
-
-// Profile picture upload
-app.post("/api/uploadProfilePic", isAuthenticated, upload.single("profilePic"), async (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ message: "No file uploaded" });
-  }
-
-  try {
-    const base64Image = req.file.buffer.toString("base64");
-    const profilePicUrl = `data:${req.file.mimetype};base64,${base64Image}`;
-
-    await usersCollection.updateOne(
-      { email: req.session.user.email },
-      { $set: { profilePic: profilePicUrl } }
-    );
-
-    res.json({ message: "Profile picture updated successfully", imageUrl: profilePicUrl });
-  } catch (error) {
-    console.error("Error updating profile picture:", error);
-    res.status(500).json({ message: "Server error, please try again" });
-  }
-});
-
-// Logout route
-app.get("/api/logout", (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      return res.status(500).json({ message: "Failed to log out" });
-    }
-    res.clearCookie("connect.sid"); // Clear session cookie
-    res.redirect("/login.html");
-  });
-});
-
-// Faculty Directory API
-app.get("/api/faculty", isAuthenticated, async (req, res) => {
-  try {
-    // Fetch faculty members where isFaculty is true
-    const facultyMembers = await usersCollection.find({ isFaculty: true }).toArray();
-
-    if (!facultyMembers || facultyMembers.length === 0) {
-      return res.status(404).json({ message: "No faculty members found." });
-    }
-
-    // Return faculty data
-    res.json(facultyMembers);
-  } catch (error) {
-    console.error("Error fetching faculty data:", error);
-    res.status(500).json({ message: "Server error. Please try again later." });
   }
 });
 
@@ -305,7 +298,91 @@ app.get("/api/students", isAuthenticated, async (req, res) => {
   }
 });
 
+// Faculty Directory API (Updated with USN in response)
+app.get("/api/faculty", isAuthenticated, async (req, res) => {
+  try {
+    // Fetch faculty members where isFaculty is true
+    const facultyMembers = await usersCollection.find({ isFaculty: true }).toArray();
 
+    if (!facultyMembers || facultyMembers.length === 0) {
+      return res.status(404).json({ message: "No faculty members found." });
+    }
+
+    // Return faculty data
+    res.json(facultyMembers);
+  } catch (error) {
+    console.error("Error fetching faculty data:", error);
+    res.status(500).json({ message: "Server error. Please try again later." });
+  }
+});
+
+// Faculty Message API
+app.put("/api/faculty/message/:facultyId", isAuthenticated, async (req, res) => {
+  const { facultyId } = req.params;
+  const { message, msgusn,msgname } = req.body;
+
+  if (!message || !msgusn) {
+    return res.status(400).json({ error: "Message and sender's USN are required" });
+  }
+
+  try {
+    const result = await usersCollection.updateOne(
+      { _id: new ObjectId(facultyId) },
+      { $push: {messages:{ msgusn, message,msgname, timestamp: new Date() } } }
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ error: "Faculty not found" });
+    }
+
+    res.json({ message: "Message sent successfully" });
+  } catch (error) {
+    console.error("Error saving message:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.put("/api/students/message/:studentId", isAuthenticated, async (req, res) => {
+  const { studentId } = req.params;
+  const { message,msgname } = req.body;
+
+  if (!message || !msgname) {
+    return res.status(400).json({ error: "Message and sender's name are required" });
+  }
+
+  try {
+    const result = await usersCollection.updateOne(
+      { _id: new ObjectId(studentId) },
+      { $push: {messages:{ message,msgname, timestamp: new Date() } } }
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ error: "Faculty not found" });
+    }
+
+    res.json({ message: "Message sent successfully" });
+  } catch (error) {
+    console.error("Error saving message:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.get("/api/notifications", isAuthenticated, async (req, res) => {
+  try {
+      // Fetch all messages sent to the logged-in faculty member
+      const faculty = await usersCollection.findOne({ email: req.session.user.email });
+
+      if (!faculty || !faculty.messages || faculty.messages.length === 0) {
+          return res.status(404).json([]);
+      }
+
+      // Return the messages array
+      res.json(faculty.messages);
+  } catch (error) {
+      console.error("Error fetching notifications:", error);
+      res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 
 // Fallback for unmatched routes

@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   
       const userData = await response.json();
       const username = userData.username || sessionStorage.getItem("username") || "User";
+      const usn = userData.usn || sessionStorage.getItem("usn") || "usn";
   
       const greetingMessage = `Welcome, ${username}!`;
       const secondaryMessage = `Explore our latest features and tools to enhance your campus experience.`;

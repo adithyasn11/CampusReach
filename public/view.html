@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CampusReach - Student Directory</title>
-  <link rel="stylesheet" href="css/studentDirectory.css">
+  <title>CampusReach - Faculty Availability</title>
+  <link rel="stylesheet" href="css/view.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
   <nav class="navbar">
     <div class="container">
-        <a href="fhome.html" class="logo">CampusReach</a>
+        <a href="shome.html" class="logo">CampusReach</a>
         <ul class="nav-links">
-            <a href="fhome.html">Dashboard</a>
-            <a href="notification.html">Notificatons</a>
-            <a href="fprofile.html">Profile</a>
+            <a href="shome.html">Dashboard</a>
+            <a href="snotification.html">Notificatons</a>
+            <a href="profile.html">Profile</a>
             <a href="login.html" id="logout-button">Logout</a>
         </ul>
         <div class="hamburger" id="hamburger">
@@ -27,23 +27,25 @@
 
 <div class="side-menu" id="side-menu">
     <span class="close-btn" id="close-btn">&times;</span>
-    <a href="fhome.html">Dashboard</a>
-    <a href="notification.html">Notificatons</a>
-    <a href="fprofile.html">Profile</a>
+    <a href="shome.html">Dashboard</a>
+    <a href="snotification.html">Notificatons</a>
+    <a href="profile.html">Profile</a>
     <a href="login.html" id="logout-button">Logout</a>
 </div>
 
-<section class="student-directory">
+<section class="faculty-directory">
   <div class="container">
-      <h1>Student Directory</h1>
+      <h1>Faculty Directory</h1>
 
       <div class="search-bar">
-          <input type="text" id="searchInput" placeholder="Search for a student name..." />
+          <input type="text" id="searchInput" placeholder="Search for a faculty name..." />
           <button id="searchButton">Search</button>
       </div>
 
-      <div id="student-cards-container" class="student-cards-container">
-        <!-- Student cards will be dynamically generated here -->
+      <div class="searched-faculty-container" id="searchedFacultyContainer" style="display: none;"></div>
+
+      <div id="faculty-cards-container" class="faculty-cards-container">
+        <!-- Faculty cards will be dynamically generated here -->
       </div>
 
       <div class="no-results" id="no-results-message" style="display: none;">No results found.</div>
@@ -78,6 +80,6 @@
         </div>
     </div>
 </footer>
-  <script src="js/studentDirectory.js"></script>
+  <script src="js/view.js"></script>
 </body>
 </html>

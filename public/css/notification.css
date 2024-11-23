@@ -12,12 +12,14 @@ body {
     color: #333;
     line-height: 1.6;
     transition: background 1s ease;
+    display: flex; /* Flex layout to manage body children */
+    flex-direction: column; /* Stack children vertically */
+    min-height: 100vh; /* Ensure full height of the viewport */
 }
 
 h1, h2, h3 {
     font-family: 'Playfair Display', serif;
 }
-
 
 .container {
     max-width: 1200px;
@@ -198,97 +200,102 @@ h1, h2, h3 {
     left: 0;
 }
 
-
-/* Greeting Section */
-/* Greeting Section */
-.greeting {
-    text-align: center;
-    margin: 50px 0;
-}
-
-.greeting h1 {
-    font-size: 2em;
-    color: #FFFFFF;
-    opacity: 0;
-    animation: fadeIn 3s ease-in-out forwards;
-    letter-spacing: 1px;
-    margin-top: 20px;
-}
-
-/* Fade-in animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-.features-section {
-    padding: 20px;
-    text-align: center;
-    display: flex; /* Use flexbox for centering */
-    flex-direction: column; /* Stack the heading and grid vertically */
-    align-items: center; /* Center content horizontally */
-    justify-content: center; /* Center content vertically if needed */
-}
-
-.features-section h2 {
-    font-size: 36px;
-    margin-bottom: 50px;
-    color: #ffffff;
-}
-
-.feature-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Set a fixed number of columns */
-    gap: 20px; /* Space between items */
-    margin-bottom: 40px;
-    justify-content: center; /* Center the grid items horizontally */
-    max-width: 1100px; /* Restrict the grid's maximum width */
-    width: 100%; /* Allow grid to stretch evenly within the parent container */
-}
-
-/* Add anchor tag styles to wrap feature-item */
-.feature-grid a {
-    text-decoration: none; /* Remove underline */
-    color: inherit; /* Inherit text color from parent */
-    display: block; /* Make the entire block clickable */
-    transition: transform 0.3s; /* Add hover transition */
-}
-
-/* Feature item styling inside anchor */
-.feature-item {
-    background-color: #FFFFFF;
-    padding: 30px;
+.notification-container {
+    max-width: 900px;
+    margin: 100px auto; /* Increased top margin to push below navbar */
+    padding: 30px; /* Increased padding for a more spacious look */
+    background: linear-gradient(135deg, #ffffff, #ffffff);
     border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-    height: 100%;
-    text-align: center; /* Center text and icons inside feature items */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    font-family: 'Poppins', sans-serif;
+    border: 1px solid #ddd;
+    transition: box-shadow 0.3s ease;
 }
 
-/* Hover effect for the entire feature link */
-.feature-grid a:hover .feature-item {
-    transform: translateY(-10px); /* Hover effect */
+/* Notification Container Hover Effect */
+.notification-container:hover {
+    transform: translateY(-2px); /* Slight movement on hover for a dynamic feel */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Icon styling */
-.feature-item i {
-    font-size: 40px;
-    color: #F39C12;
-    margin-bottom: 15px;
+/* Header for Notifications */
+.notification-header {
+    font-size: 36px;
+    color: #0f4a6b; /* Slightly darker blue for emphasis */
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 50px; /* Larger bottom margin for better spacing */
+    font-family: 'Playfair Display', serif;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    border-bottom: 2px solid #ddd; /* Separator below the header */
+    padding-bottom: 10px;
 }
 
+/* Individual Notification Card */
+.notification-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items to the top */
+    padding: 25px;
+    margin-bottom: 30px; /* Larger gap between notifications */
+    border: 1px solid #e6e6e6;
+    background:  #d0d0d0; /* Light gray background */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
+}
+
+/* Notification Card Hover Effect */
+.notification-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background: #f5faff; /* Soft light-blue highlight on hover */
+    border-color: #d0e6f7; /* Soft blue border on hover */
+}
+
+/* Message Content Styling */
+.notification-content {
+    flex: 1;
+    margin-right: 20px; /* Added more spacing between message and timestamp */
+}
+
+.notification-message {
+    font-size: 18px;
+    color: #333;
+    font-weight: 600; /* Bold font for message */
+    margin-bottom: 8px;
+}
+
+.notification-usn {
+    font-size: 15px;
+    color: #555;
+    font-style: italic;
+    margin-top: 5px;
+    line-height: 1.5; /* Improved line spacing */
+}
+
+/* Timestamp Styling */
+.notification-timestamp {
+    font-size: 14px;
+    color: #5b5959;
+    text-align: right;
+    white-space: nowrap;
+    margin-left: 15px; /* Add spacing between timestamp and message */
+}
+
+/* Divider for Notifications */
+.notification-card:not(:last-child) {
+    border-bottom: 2px solid #f1f1f1; /* Subtle divider for better distinction */
+}
 
 
 footer {
     background-color: #2C3E50;
     color: #ECF0F1;
     padding: 40px 0;
+    margin-top: auto; /* Push footer to bottom */
+    width: 100%;
 }
 
 footer .container {
@@ -296,8 +303,6 @@ footer .container {
     flex-direction: column;
     align-items: center;
 }
-
-
 
 .footer-columns {
     display: flex;
@@ -378,12 +383,3 @@ footer .container {
         margin-bottom: 20px;
     }
 }
-
-.secondary-greeting {
-    color: #FFFFFF;
-    font-size: 1.5em;
-    margin-top: 10px;
-    opacity: 0;
-    animation: fadeIn 3s ease-in-out forwards;
-}
-
