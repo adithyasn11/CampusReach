@@ -15,9 +15,9 @@ window.addEventListener("resize", () => {
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const studentGrid = document.getElementById("StudentGrid");
-    const studentSearchInput = document.getElementById("searchInput");
-    const studentNoResults = document.querySelector(".no-results");
+    const studentCardsContainer = document.getElementById("student-cards-container");
+    const searchInput = document.getElementById("searchInput");
+    const noResultsMessage = document.getElementById("no-results-message");
 
     let studentData = []; // Store fetched student data for search
 
@@ -30,34 +30,29 @@ document.addEventListener("DOMContentLoaded", async () => {
                 credentials: "include",
             });
 
-            console.log("Response from /api/students:", response);
-
             if (!response.ok) throw new Error("Failed to fetch student data");
 
             studentData = await response.json(); // Save data
-            console.log("Student Data:", studentData);
-
             displayStudentData(studentData); // Display all students initially
         } catch (error) {
             console.error("Error fetching student data:", error);
-            studentGrid.innerHTML = `<p>Unable to load student directory. Please try again later.</p>`;
+            studentCardsContainer.innerHTML = `<p>Unable to load student directory. Please try again later.</p>`;
         }
     }
 
     // Display Student Data
     function displayStudentData(data) {
-        console.log("Displaying student data:", data); // Debugging: Log data to be displayed
-        studentGrid.innerHTML = ""; // Clear the grid
+        studentCardsContainer.innerHTML = ""; // Clear the container
 
-        if (!Array.isArray(data) || data.length === 0) {
-            studentNoResults.style.display = "block"; // Show "No results" message
+        if (data.length === 0) {
+            noResultsMessage.style.display = "block"; // Show "No results" message
             return;
         }
 
-        studentNoResults.style.display = "none"; // Hide "No results" message
+        noResultsMessage.style.display = "none"; // Hide "No results" message
         data.forEach((student) => {
             const studentCard = document.createElement("div");
-            studentCard.classList.add("student-card");
+            studentCard.classList.add("card");
 
             studentCard.innerHTML = `
                 <img src="${student.profilePic || 'img/dummy.jpg'}" alt="Student Photo" class="student-photo">
@@ -66,17 +61,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <p class="student-department">${student.department || "Unknown Department"}</p>
             `;
 
-            studentGrid.appendChild(studentCard);
+            studentCardsContainer.appendChild(studentCard);
         });
     }
 
     // Perform Search for Students
     function searchStudents(searchTerm) {
-        console.log("Searching for students with term:", searchTerm); // Debugging
         const filteredStudents = studentData.filter((student) =>
             student.name && student.name.toLowerCase().includes(searchTerm)
         );
-        console.log("Filtered Students:", filteredStudents); // Debugging
         displayStudentData(filteredStudents); // Display filtered results
     }
 
@@ -84,8 +77,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     await fetchStudentData();
 
     // Add Real-Time Search Listener for Students
-    studentSearchInput.addEventListener("input", () => {
-        const searchTerm = studentSearchInput.value.trim().toLowerCase();
+    searchInput.addEventListener("input", () => {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        searchStudents(searchTerm);
+    });
+
+    // Add Search Button Click Listener
+    document.getElementById("searchButton").addEventListener("click", () => {
+        const searchTerm = searchInput.value.trim().toLowerCase();
         searchStudents(searchTerm);
     });
 });
