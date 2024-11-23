@@ -277,9 +277,67 @@ h1, h2, h3 {
 }
 
 @media (max-width: 768px) {
-    .features-section h2 {
-        font-size: 28px; /* Adjust font size for smaller screens */
+    body {
+        font-size: 14px; /* Base font size adjustment */
     }
+
+    h1 {
+        font-size: 1.5em; /* Adjusted for smaller screens */
+    }
+
+    h2 {
+        font-size: 1.3em; /* Adjusted for smaller screens */
+    }
+
+    h3 {
+        font-size: 1.1em; /* Adjusted for smaller screens */
+    }
+
+    .navbar .logo {
+        font-size: 18px; /* Reduced font size for the logo */
+    }
+
+    .nav-links a {
+        font-size: 12px; /* Smaller text for nav links */
+    }
+
+    .side-menu a {
+        font-size: 14px; /* Adjusted for side menu links */
+    }
+
+    .hero h2 {
+        font-size: 1.8em; /* Reduced hero section heading size */
+    }
+
+    .hero p {
+        font-size: 1em; /* Adjusted paragraph font size */
+    }
+
+    .btn {
+        font-size: 16px; /* Reduced button text size */
+    }
+
+    .features-section h2 {
+        font-size: 1.5em; /* Reduced heading size */
+    }
+
+    .feature-item {
+        font-size: 0.9em; /* Reduced content size inside feature cards */
+    }
+
+    footer p {
+        font-size: 12px; /* Reduced footer text size */
+    }
+
+    .social-icons a i {
+        font-size: 20px; /* Slightly smaller social icon size */
+    }
+
+    .secondary-greeting {
+        font-size: 1.2em; /* Adjusted secondary greeting size */
+    }
+
+
 
     .feature-grid {
         grid-template-columns: 1fr; /* Show one item per row on smaller screens */

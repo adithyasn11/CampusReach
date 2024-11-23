@@ -367,7 +367,65 @@ footer .container {
         width: 100%;
         margin-bottom: 20px;
     }
+    body {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    h2 {
+        font-size: 1.25em;
+    }
+
+    h3 {
+        font-size: 1.1em;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .nav-links a {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+
+    .side-menu a {
+        font-size: medium;
+        padding: 8px 16px;
+    }
+
+    .greeting h1 {
+        font-size: 1.8em;
+    }
+
+    .secondary-greeting {
+        font-size: 1.2em;
+    }
+
+    .features-section h2 {
+        font-size: 24px;
+    }
+
+    .feature-item {
+        padding: 20px;
+    }
+
+    footer .container {
+        padding: 20px;
+    }
+
+    .footer-bottom p {
+        font-size: 12px;
+    }
+
+    .col-links a {
+        font-size: 14px;
+    }
 }
+
 
 .secondary-greeting {
     color: #FFFFFF;

@@ -344,10 +344,67 @@ footer .container {
 }
 
 @media (max-width: 768px) {
+    body {
+        font-size: 14px; /* Adjust base font size */
+    }
+
+    h1 {
+        font-size: 24px; /* Reduce font size for headings */
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .nav-links a {
+        font-size: 12px; /* Reduce navigation link font size */
+        padding: 6px 12px; /* Adjust padding for smaller links */
+    }
+
+    .hamburger {
+        padding: 4px; /* Adjust padding for smaller hamburger icon */
+    }
+
+    .side-menu a {
+        font-size: 14px; /* Reduce font size for side menu links */
+        padding: 8px 16px; /* Adjust padding */
+    }
+
+    .hero h2 {
+        font-size: 28px; /* Reduce hero section heading size */
+    }
+
+    .hero p {
+        font-size: 16px; /* Reduce paragraph size */
+    }
+
+    .btn {
+        font-size: 14px; /* Adjust button font size */
+        padding: 10px 20px; /* Reduce button padding */
+    }
+
+    footer {
+        font-size: 12px; /* Reduce footer font size */
+    }
+
     .footer-columns {
-        flex-direction: column;
+        flex-direction: column; /* Stack columns for smaller screens */
         align-items: center;
     }
+
+    .social-icons img {
+        width: 24px; /* Reduce size of social media icons */
+    }
+
+    
 
     .col-about, .col-links, .col-contact {
         width: 100%;

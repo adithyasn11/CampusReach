@@ -416,8 +416,42 @@ footer .container {
         padding: 6px;
     }
 
-    .feature-grid {
-        grid-template-columns: 1fr;
+    .logo {
+        font-size: 18px; /* Reduced font size */
+    }
+
+    h1, h2, h3 {
+        font-size: 22px; /* Reduced font size */
+    }
+
+    .nav-links a {
+        font-size: 14px; /* Reduced font size */
+    }
+
+    .search-bar {
+        margin-bottom: 10px;
+    }
+
+    #searchInput {
+        width: 250px; /* Adjusted size for mobile */
+        font-size: 14px; /* Reduced font size */
+    }
+
+    #searchButton {
+        padding: 8px 12px;
+        font-size: 14px; /* Reduced font size */
+    }
+
+    .faculty-card {
+        padding: 15px; /* Adjusted padding */
+    }
+
+    .faculty-name {
+        font-size: 16px; /* Reduced font size */
+    }
+
+    .faculty-post {
+        font-size: 14px; /* Reduced font size */
     }
 
     .footer-columns {
@@ -433,4 +467,8 @@ footer .container {
     .faculty-grid {
         grid-template-columns: 1fr;
     }
+
+    
+ 
+    
 }
