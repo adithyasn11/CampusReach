@@ -226,30 +226,32 @@ h1, h2, h3 {
         transform: translateY(0);
     }
 }
-
 .features-section {
-    padding: 1px 0px;
+    padding: 20px;
     text-align: center;
     display: flex; /* Use flexbox for centering */
-    flex-direction: column; /* Keep content in a column layout */
-    align-items: center; /* Center items horizontally */
-    min-height: 65vh; 
-    margin-top: 150px;
+    flex-direction: column; /* Stack the heading and grid vertically */
+    align-items: center; /* Center content horizontally */
+    justify-content: center; /* Center content vertically if needed */
 }
 
 .features-section h2 {
     font-size: 36px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     color: #ffffff;
 }
 
 .feature-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
-    gap: 20px;
-    justify-content: center; /* Center the grid horizontally */
+    grid-template-columns: repeat(2, 1fr); /* Set a fixed number of columns */
+    gap: 20px; /* Space between items */
+    margin-bottom: 40px;
+    justify-content: center; /* Center the grid items horizontally */
+    max-width: 1100px; /* Restrict the grid's maximum width */
+    width: 100%; /* Allow grid to stretch evenly within the parent container */
 }
 
+/* Add anchor tag styles to wrap feature-item */
 .feature-grid a {
     text-decoration: none; /* Remove underline */
     color: inherit; /* Inherit text color from parent */
@@ -257,6 +259,7 @@ h1, h2, h3 {
     transition: transform 0.3s; /* Add hover transition */
 }
 
+/* Feature item styling inside anchor */
 .feature-item {
     background-color: #FFFFFF;
     padding: 30px;
@@ -264,31 +267,21 @@ h1, h2, h3 {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
     height: 100%;
+    text-align: center; /* Center text and icons inside feature items */
 }
 
+/* Hover effect for the entire feature link */
 .feature-grid a:hover .feature-item {
     transform: translateY(-10px); /* Hover effect */
 }
 
+/* Icon styling */
 .feature-item i {
     font-size: 40px;
     color: #F39C12;
     margin-bottom: 15px;
 }
 
-@media (max-width: 768px) {
-    .features-section h2 {
-        font-size: 28px; /* Adjust font size for smaller screens */
-    }
-
-    .feature-grid {
-        grid-template-columns: 1fr; /* Show one item per row on smaller screens */
-    }
-
-    .feature-item {
-        padding: 20px; /* Reduce padding on smaller screens */
-    }
-}
 
 
 
