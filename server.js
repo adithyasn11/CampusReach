@@ -259,6 +259,26 @@ app.put("/api/profile", isAuthenticated, async (req, res) => {
   }
 });
 
+app.get("/api/students", isAuthenticated, async (req, res) => {
+  try {
+    // Fetch students where isFaculty is false
+    const students = await usersCollection
+      .find({ isFaculty: false })
+      .project({ name: 1, usn: 1, profilePic: 1, department: 1 }) // Select only the required fields
+      .toArray();
+
+    if (!students || students.length === 0) {
+      return res.status(404).json({ message: "No students found." });
+    }
+
+    // Return student data
+    res.json(students);
+  } catch (error) {
+    console.error("Error fetching students data:", error);
+    res.status(500).json({ message: "Server error. Please try again later." });
+  }
+});
+
 // Faculty Directory API (Updated with USN in response)
 app.get("/api/faculty", isAuthenticated, async (req, res) => {
   try {
