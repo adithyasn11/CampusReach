@@ -98,7 +98,7 @@ Follow these steps to set up the project locally:
    ```env
    MONGO_URI=your_mongodb_connection_string
    SESSION_SECRET=your_session_secret
-   PORT=5000
+   PORT=3000
    ```
 
 5. **Start the Server**
